@@ -1,0 +1,40 @@
+Orgão superior
+	-Codigo orgão Superior
+	-Nome orgao Superior
+
+orgão subordidano
+	-Codigo orgao Subordinado
+	-Nome orgao Subordinado
+
+Unidade gestora
+	-Codigo Unidade Gestora
+	-Nome Unidade Gestora
+
+Função
+	-Codigo Função
+	-Nome Função
+
+Subfunção
+	-Codigo Subfunção
+	-Nome Subunção
+
+Programa
+	-Codigo Programa
+	-Nome Programa
+
+Ação
+	-Codigo Ação
+	-Nome Ação
+
+Não sei oq é isso
+	-Linguagem Cidadã
+
+Pessoa
+	-CPF Favorecido
+	-Nome Favorecido
+
+PAgamento
+	-Documento Pagamento
+	-Gestão Pagamento
+	-Data Pagamento
+	-Valor Pagamento
