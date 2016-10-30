@@ -26,14 +26,20 @@ Ação
 	-Codigo Ação
 	-Nome Ação
 
-Não sei oq é isso
-	-Linguagem Cidadã
+
 
 Pessoa
 	-CPF Favorecido
 	-Nome Favorecido
 
-PAgamento
+
+
+Não sei oq é isso
+	-Linguagem Cidadã
+
+
+
+Pagamento
 	-Documento Pagamento
 	-Gestão Pagamento
 	-Data Pagamento
