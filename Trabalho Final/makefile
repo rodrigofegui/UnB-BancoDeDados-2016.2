@@ -12,7 +12,7 @@ DOCUMENTADOR = javadoc
 # Diretórios 
 ###################
 # Atual, que contém todas as pastas necessárias
-DIR_BASE = /home/rodrigo/Dropbox/UnB/UnB\ 2016.2/Banco\ de\ Dados/Trabalhos/Trabalho\ Final/Codificação/
+DIR_BASE = <colocar o seu diretório aqui>/Trabalho\ Final/Codificação/
 # Arquivos-fonte, puros
 DIR_FONTES = $(DIR_BASE)src/
 # Arquivos executáveis
@@ -29,7 +29,7 @@ TAGS_MEMORIA = -Xms1024M -Xmx1624M
 ###################
 # Arquivo com o método "main"
 ###################
-ARQ_PRINCIPAL = controle.ControladorEstoque
+ARQ_PRINCIPAL = principal.Principal
 
 
 ###################
