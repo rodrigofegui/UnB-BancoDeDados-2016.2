@@ -25,7 +25,7 @@ public class ItemSimples{
 	 * Construção de um Item Simples por maneira default
 	 */
 	public ItemSimples (){
-		setCodigo(-1);
+		setCodigo(999999999);
 		
 		setDescricao("");
 		
@@ -149,11 +149,8 @@ public class ItemSimples{
 	 * @return Valor da comparação. 0 se forem iguais, senão retorna a subtração dos códigos.
 	 */
 	public int compareTo(ItemSimples objetoDois) {
-		if (equals(objetoDois))
+		if (equals(objetoDois) || this.getDescricao().equals(objetoDois.getDescricao()))
 			return 0;
-	
-		if (getCodigo() == -1)
-			setCodigo(999999999);
 		
 		return this.getCodigo() - objetoDois.getCodigo();
 	}

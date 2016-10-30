@@ -17,7 +17,7 @@ public class TabelaSimples{
 	 * Identificador da tabela
 	 */
 	private LinkedList<ItemSimples> itens;
-	private LinkedList<String> campos;
+	private LinkedList<Campo> campos;
 	private String nome;
 	
 	
@@ -28,7 +28,7 @@ public class TabelaSimples{
 	public TabelaSimples (){
 		setItens(new LinkedList<ItemSimples>());
 		
-		setCampos(new LinkedList<String>());
+		setCampos(new LinkedList<Campo>());
 		
 		setNome("");
 	}
@@ -61,7 +61,7 @@ public class TabelaSimples{
 	 * @param itens Itens a serem atribuídos
 	 * @param campos Campos a serem atribuídos
 	 */
-	public TabelaSimples (LinkedList<ItemSimples> itens, LinkedList<String> campos){
+	public TabelaSimples (LinkedList<ItemSimples> itens, LinkedList<Campo> campos){
 		this (itens);
 		
 		setCampos(campos);
@@ -73,7 +73,7 @@ public class TabelaSimples{
 	 * @param nome Nome a ser atribuido
 	 * @param campos Campos a serem atribuídos
 	 */
-	public TabelaSimples (String nome, LinkedList<String> campos){
+	public TabelaSimples (String nome, LinkedList<Campo> campos){
 		this(nome);
 		
 		setCampos(campos);
@@ -86,7 +86,7 @@ public class TabelaSimples{
 	 * @param campos Campos a serem atribuídos
 	 * @param nome Nome a ser atribuído
 	 */
-	public TabelaSimples (LinkedList<ItemSimples> itens, LinkedList<String> campos, String nome){
+	public TabelaSimples (LinkedList<ItemSimples> itens, LinkedList<Campo> campos, String nome){
 		this (itens, campos);
 		
 		setNome(nome);
@@ -114,7 +114,7 @@ public class TabelaSimples{
 	 * Valores atribuídos aos campos da tabela
 	 * @return Campos da tabela
 	 */
-	public LinkedList<String> getCampos (){
+	public LinkedList<Campo> getCampos (){
 		return this.campos;
 	}
 	
@@ -122,13 +122,13 @@ public class TabelaSimples{
 	 * Atribuição de campos à tabela
 	 * @param campos Campos a serem atribuídos
 	 */
-	public void setCampos (LinkedList<String> campos){
+	public void setCampos (LinkedList<Campo> campos){
 		this.campos = campos;
 	}
 	
 	/**
 	 * Valor atribuído ao nome da tabela
-	 * @return
+	 * @return Nome atribuído à tabela
 	 */
  	public String getNome (){
 		return this.nome;
@@ -156,8 +156,39 @@ public class TabelaSimples{
 	}
 	
 	/**
-	 * Representação inteligível do item para inserção
-	 * numa tabela em SQL
+	 * Representacao inteligível da tabela para
+	 * remoção da tabela em SQL
+	 * @return Drop da tabela em SQL
+	 */
+	public String dropInSQL (){
+		String toSQL = "";
+		
+		toSQL += "DROP TABLE IF EXISTS " + getNome() + "\n";
+		
+		return toSQL;
+	}
+	
+	/**
+	 * Representação inteligível da tabela para criação
+	 * num banco de dados em SQL
+	 * @return Criação da tabela em SQL
+	 */
+	public String criarInSQL (){
+		String toSQL = "";
+		
+		toSQL += "CREATE TABLE " + getNome() + "\n\t(";
+		
+		for (Campo campo : getCampos())
+			toSQL += campo.toString() + ",\n\t ";
+		
+		toSQL = toSQL.substring(0, toSQL.length() - 4) + ");";
+		
+		return toSQL + "\n\n";
+	}
+	
+	/**
+	 * Representação inteligível da tabela para inserção
+	 * num banco de dados em SQL
 	 * @return Inserção para SQL
 	 */
 	public String inserirInSQL(){
@@ -173,13 +204,12 @@ public class TabelaSimples{
 				
 				linha += getNome() + " (";
 				
-				for (String campo : getCampos())
-					linha += campo + ", ";
+				for (Campo campo : getCampos())
+					linha += campo.getDescricao() + ", ";
 				
 				linha = linha.substring(0, linha.length() - 2) + ") ";
 				
-				if ((item.getCodigo() == -1)
-					|| (item.getCodigo() == 999999999))
+				if (item.getCodigo() == 999999999)
 					item.setCodigo(contador);
 				
 				linha += item.inserirNoSQL();
@@ -192,7 +222,7 @@ public class TabelaSimples{
 		}else{
 			toSQL = getNome() + ": ";
 			
-			toSQL += "Sem atributos, mas com os campos:\n\t";
+			toSQL += "Sem atributos, mas com os campos:\n";
 			
 			toSQL += getCampos().toString(); 
 		}
