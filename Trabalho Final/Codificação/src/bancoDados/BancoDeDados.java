@@ -17,11 +17,11 @@ import java.util.LinkedList;
  */
 public class BancoDeDados{
 	/**
-	 * Tabelas simples existentes no BD
+	 * Tabelas existentes no BD
 	 * Nome caraterístico do BD
 	 * Nome do arquivo base para o processo de ETL
 	 */
-	private LinkedList<TabelaSimples> tbSimples;
+	private LinkedList<Tabela> tb;
 	private String nome;
 	private String nomeArqETL;
 	
@@ -31,24 +31,24 @@ public class BancoDeDados{
 	 * Construção de um Bando de Dados por maneira default
 	 */
 	public BancoDeDados (){
-		setTbSimples(new LinkedList<TabelaSimples>());
+		//setTbSimples(new LinkedList<TabelaSimples>());
+		
+		setTb(new LinkedList<Tabela>());
 
 		setNome("BDPadrao");
 		
 		setNomeArqETL("");
-
-		iniciarEspecifico();
 	}
 	
 	/**
 	 * Construção de um Banco de Dados conhecendo
-	 * as tabelas simples
-	 * @param tbSimples Tabelas simples a serem atribuídas
+	 * as tabelas
+	 * @param tb Tabelas a serem atribuídas
 	 */
-	public BancoDeDados (LinkedList<TabelaSimples> tbSimples){
+	public BancoDeDados (LinkedList<Tabela> tb){
 		this();
 		
-		setTbSimples(tbSimples);
+		setTb(tb);
 	}
 	
 	/**
@@ -63,32 +63,32 @@ public class BancoDeDados{
 	
 	/**
 	 * Construção de um Banco de Dados, conhecendo
-	 * as tabelas simples e o nome
-	 * @param tbSimples Tabelas simples a serem atribuídas
+	 * as tabelas e o nome
+	 * @param tb Tabelas a serem atribuídas
 	 * @param nome Nome a ser atribuído
 	 */
-	public BancoDeDados (LinkedList<TabelaSimples> tbSimples, String nome){
-		this (tbSimples);
+	public BancoDeDados (LinkedList<Tabela> tb, String nome){
+		this (tb);
 		
 		setNome(nome);
 	}
 	
 	
-	
+
 	/**
 	 * Valores atribuídos às tabelas simples do BD
-	 * @return Tabelas Simples existentes
+	 * @return Tabelas existentes
 	 */
-	public LinkedList<TabelaSimples> getTbSimples() {
-		return tbSimples;
+	public LinkedList<Tabela> getTb() {
+		return tb;
 	}
 
 	/**
 	 * Atribuição de tabelas simples ao BD
-	 * @param tbSimples Tabelas simples a serem atribuídas
+	 * @param tb Tabelas a serem atribuídas
 	 */
-	public void setTbSimples(LinkedList<TabelaSimples> tbSimples) {
-		this.tbSimples = tbSimples;
+	public void setTb(LinkedList<Tabela> tb) {
+		this.tb = tb;
 	}
 
 	/**
@@ -103,7 +103,6 @@ public class BancoDeDados{
 	 * Atribuição de um nome ao BD
 	 * @param nome Nome a ser atribuído ao BD
 	 */
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -128,57 +127,103 @@ public class BancoDeDados{
 	}
 	
 	
-	
-	
 
 	/**
-	 * Inicialização do Bando de Dados específicamente
+	 * Inicialização do Bando de Dados específicamente ao problema,
+	 * configurando as tabelas e os campos pré-definidos
 	 */
-	private void iniciarEspecifico (){
-		LinkedList<Campo> campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
-		getTbSimples().add(new TabelaSimples("Orgao_Superior", campos));
+	public void iniciarEspecifico (){
+		LinkedList<Campo> campos;
 		
+		// 0:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY "));
-		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
-		campos.add(new Campo("cod_superior"));//, "integer unsigned"));
-		getTbSimples().add(new TabelaSimples("Orgao_Subordinado", campos));
+		campos.add(new Campo("codigo"));
+		campos.add(new Campo("nome"));
+		campos.add(new Campo("linguagem_cidada"));
+		getTb().add(new Tabela("Acao", campos));
 		
-		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));// "int(255) unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));//, "varchar(255)", "NOT NULL"));
-		campos.add(new Campo("cod_superior"));//, "int(255)", "NOT NULL"));
-		campos.add(new Campo("cod_subordinado"));//, "int"));
-		getTbSimples().add(new TabelaSimples("Unidade_Gestora", campos));
-		
+		// 1:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
 		campos.add(new Campo("nome"));//, "varchar(25)"));
 		campos.add(new Campo("cod_superior"));
 		campos.add(new Campo("cod_subordinado"));
 		campos.add(new Campo("cod_unidade_gestora"));
-		getTbSimples().add(new TabelaSimples("Funcao", campos));
+		getTb().add(new Tabela("Funcao", campos));
 		
+		// 2:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));// "varchar(55)"));
-		getTbSimples().add(new TabelaSimples("Sub_Funcao", campos));
+		campos.add(new Campo("cod_fun"));
+		campos.add(new Campo("cod_sub_fun"));
+		getTb().add(new Tabela("Fun_Subfun", campos));
 		
+		// 3:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY "));
+		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		campos.add(new Campo("cod_superior"));//, "integer unsigned"));
+		getTb().add(new Tabela("Orgao_Subordinado", campos));
+		
+		// 4:
+		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		getTb().add(new Tabela("Orgao_Superior", campos));
+		
+		// 5:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("documento_pagamento"));
+		campos.add(new Campo("gestao_pagamento"));
+		getTb().add(new Tabela("Pagamento", campos));
+		
+		// 6:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("cpf"));
+		campos.add(new Campo("nome"));
+		getTb().add(new Tabela("Pessoa", campos));
+		
+		// 7:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("cpf_pessoa"));
+		campos.add(new Campo("doc_pag"));
+		campos.add(new Campo("data_pagamento"));
+		campos.add(new Campo("valor"));
+		getTb().add(new Tabela("Pessoa_Pag", campos));
+		
+		// 8:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
 		campos.add(new Campo("nome"));//, "varchar(115)"));
-		getTbSimples().add(new TabelaSimples("Programa", campos));
+		getTb().add(new Tabela("Programa", campos));
 		
-		/*
+		// 9:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cdAc"));
-		campos.add(new Campo("nmAc"));
-		getTbSimples().add(new TabelaSimples("Acao", campos));
-		//*/
+		campos.add(new Campo("cod_prog"));
+		campos.add(new Campo("cod_acao"));
+		getTb().add(new Tabela("Prog_Acao", campos));
+		
+		// 10:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("cod_prog"));
+		campos.add(new Campo("cod_sub"));
+		getTb().add(new Tabela("Prog_Orgao", campos));
+		
+		// 11:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));// "varchar(55)"));
+		getTb().add(new Tabela("Sub_Funcao", campos));
+			
+		// 12:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("codigo"));// "int(255) unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(255)", "NOT NULL"));
+		campos.add(new Campo("cod_superior"));//, "int(255)", "NOT NULL"));
+		campos.add(new Campo("cod_subordinado"));//, "int"));
+		getTb().add(new Tabela("Unidade_Gestora", campos));
 	}
 
+	
+	
 	/**
 	 * Processo de ETL (Extração, Transformação e Carregamento) sob o
 	 * arquivo registrado 
@@ -186,6 +231,7 @@ public class BancoDeDados{
 	public void processoETL (){
 		processoETL(getNomeArqETL());
 	}
+	
 	
 	/**
 	 * Processo de ETL (Extração, Transformação e Carregamento) sob o
@@ -198,6 +244,7 @@ public class BancoDeDados{
 		
 		eOfETL (nomeArqETL);
 	}
+	
 	
 	/**
 	 * Etapa de extração de dados, para a construção do BD, considerando
@@ -230,74 +277,124 @@ public class BancoDeDados{
 	 */
 	public void tOfETL (String bruto){
 		String partes[] = bruto.split("\t");
-		int i = 0;
-		//for (int i = 0; i < 14; i += 2){
 		
+		/*
+		for (int i = 0; i < partes.length; i++)
+			System.out.println("Parte[" + i + "] -> " + partes[i]);
+		//*/
+
 		//System.out.println("Qnt de partes -> " + partes.length);
+		//*
 		if (!partes[0].equals("Detalhamento das informa��es n�o dispon�vel.")){
-			/*	Órgão Superior *
-			TabelaSimples tbS = getTbSimples().get(0);
-			ItemSimples itemS = new ItemSimples();
-			itemS.setCodigo(Integer.parseInt(partes[0]));
-			itemS.setDescricao(partes[1]);
-			inserirItemTabela (itemS, tbS);
+			//System.out.println("Entrou na transformação");
+			Item item;
+			Tabela tb;
 			
-			/*	Órgão Subordinado *
-			tbS = getTbSimples().get(1);
-			itemS = new ItemSimples();
-			itemS.setCodigo(Integer.parseInt(partes[2]));
-			itemS.setDescricao(partes[3]);
-			itemS.getCodRef().add(Integer.parseInt(partes[0]));
-			inserirItemTabela (itemS, tbS);
+			/*	Ação */
+			tb = getTb().get(0);
+			item = new Item();
+			item.setCodigoStr(partes[12]);
+			item.setDescricao(partes[13]);
+			item.getCodRefStr().add(partes[14]);
+			inserirItemTabela (item, tb);
 			
-			/*	Unidade Gestora *
-			tbS = getTbSimples().get(2);
-			itemS = new ItemSimples();
-			itemS.setCodigo(Integer.parseInt(partes[4]));
-			itemS.setDescricao(partes[5]);
-			itemS.getCodRef().add(Integer.parseInt(partes[0]));
-			itemS.getCodRef().add(Integer.parseInt(partes[2]));
-			inserirItemTabela (itemS, tbS);
+			/*	Função */
+			tb = getTb().get(1);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[6]));
+			item.setDescricao(partes[7]);
+			item.getCodRef().add(Integer.parseInt(partes[0]));
+			item.getCodRef().add(Integer.parseInt(partes[2]));
+			item.getCodRef().add(Integer.parseInt(partes[4]));
+			inserirItemTabela (item, tb);
 			
-			/*	Função *
-			tbS = getTbSimples().get(3);
-			itemS = new ItemSimples();
-			itemS.setCodigo(Integer.parseInt(partes[6]));
-			itemS.setDescricao(partes[7]);
-			itemS.getCodRef().add(Integer.parseInt(partes[0]));
-			itemS.getCodRef().add(Integer.parseInt(partes[2]));
-			itemS.getCodRef().add(Integer.parseInt(partes[4]));
-			inserirItemTabela (itemS, tbS);
-			//*/
+			/*	Função-SubFunção */
+			tb = getTb().get(2);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[6]));
+			item.getCodRef().add(Integer.parseInt(partes[8]));
+			inserirItemTabela (item, tb);
 			
+			/*	Órgão Subordinado */
+			tb = getTb().get(3);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[2]));
+			item.setDescricao(partes[3]);
+			item.getCodRef().add(Integer.parseInt(partes[0]));
+			inserirItemTabela (item, tb);
 			
-			//*
-			for (TabelaSimples tb : getTbSimples()){
-				/*
-				System.out.println("Codigo -> " + partes[i]);
-				System.out.println("Descricao -> " + partes[i + 1] + "\n");
-				//*/
-				ItemSimples itemS = new ItemSimples(Integer.parseInt(partes[i]), partes[i + 1]);
-				
-				inserirItemTabela(itemS, tb);
-				
-				i += 2;
-				//*/
-			}
-			//*/
-			for (int ind = 1; ind < 4; ind++){
-				int contador = 0;
-				ItemSimples itemS = getTbSimples().get(ind).getItens().getLast();
-				
-				for (int j = 0; j < ind; j++, contador += 2)
-					itemS.getCodRef().add(Integer.parseInt(partes[contador]));
-					
-			}
-				
-			//System.out.println("\n\n");
+			/*	Órgão Superior */
+			tb = getTb().get(4);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[0]));
+			item.setDescricao(partes[1]);
+			inserirItemTabela (item, tb);
+			
+			/*	Pagamento */
+			tb = getTb().get(5);
+			item = new Item();
+			item.setCodigoStr(partes[17]);
+			item.setDescricao(partes[18]);
+			inserirItemTabela (item, tb);
+			
+			/*	Pessoa */
+			tb = getTb().get(6);
+			item = new Item();
+			item.setCodigoStr(partes[15]);
+			item.setDescricao(partes[16]);
+			inserirItemTabela (item, tb);
+			
+			/*	Pessoa_Pag */
+			tb = getTb().get(7);
+			item = new Item();
+			item.setCodigoStr(partes[15]);
+			item.setDescricao(partes[17]);
+			item.getCodRefStr().add(partes[19]);
+			partes[20] = partes[20].replace(',', '.');
+			item.setCodRefFlo(Float.parseFloat(partes[20]));
+			inserirItemTabela (item, tb);
+			
+			/* Programa */
+			tb = getTb().get(8);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[10]));
+			item.setDescricao(partes[11]);
+			inserirItemTabela (item, tb);
+			
+			/*	Prog_Acao */
+			tb = getTb().get(9);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[10]));
+			item.getCodRefStr().add(partes[12]);
+			inserirItemTabela (item, tb);
+			
+			/*	Prog_Orgao */
+			tb = getTb().get(10);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[10]));
+			item.getCodRef().add(Integer.parseInt(partes[2]));
+			inserirItemTabela (item, tb);
+			
+			/* Sub Função */
+			tb = getTb().get(11);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[8]));
+			item.setDescricao(partes[9]);
+			inserirItemTabela (item, tb);
+						
+			/*	Unidade Gestora */
+			tb = getTb().get(12);
+			item = new Item();
+			item.setCodigo(Integer.parseInt(partes[4]));
+			item.setDescricao(partes[5]);
+			item.getCodRef().add(Integer.parseInt(partes[0]));
+			item.getCodRef().add(Integer.parseInt(partes[2]));
+			inserirItemTabela (item, tb);		
 		}
-		
+		//*/
 	}
+	
+	
 	
 	/**
 	 * Inserção de um item numa tabela, garantindo que o mesmo já não exista
@@ -307,7 +404,25 @@ public class BancoDeDados{
 	public void inserirItemTabela (ItemSimples item, TabelaSimples tabela){
 		boolean condicao = true;
 		
-		for (ItemSimples itemBusca : tabela.getItens())
+		for (ItemSimples itemBusca : tabela.getItensS())
+			if (item.compareTo(itemBusca) == 0){
+				condicao = false;
+				break;
+			}
+		
+		if (condicao)
+			tabela.getItensS().add(item);
+	}
+	
+	/**
+	 * Inserção de um item numa tabela, garantindo que o mesmo já não exista
+	 * @param item Item a ser analisado na inserção
+	 * @param tabela Tabela para inserção do item
+	 */
+	public void inserirItemTabela (Item item, Tabela tabela){
+		boolean condicao = true;
+		
+		for (Item itemBusca : tabela.getItens())
 			if (item.compareTo(itemBusca) == 0){
 				condicao = false;
 				break;
@@ -316,6 +431,9 @@ public class BancoDeDados{
 		if (condicao)
 			tabela.getItens().add(item);
 	}
+	
+	
+	
 	
 	
 	/**
@@ -329,12 +447,12 @@ public class BancoDeDados{
 		String createSQL = "";
 		String insertSQL = "";
 		
-		for (TabelaSimples tbS : getTbSimples()){
-			dropSQL += tbS.dropInSQL();
+		for (Tabela tb : getTb()){
+			dropSQL += tb.dropInSQL();
 			
-			createSQL += tbS.criarInSQL();
+			createSQL += tb.criarInSQL();
 			
-			insertSQL += tbS.inserirInSQL();
+			insertSQL += tb.inserirInSQL();
 		}
 		
 		dropSQL += "\n\n\n";
@@ -353,20 +471,23 @@ public class BancoDeDados{
 	 */
 	public String insertInSQL (){
 		String insertSQL = "";
-		int count = getTbSimples().size();
+		int count = getTb().size();
 		
-		System.out.println("A ler " + count + " tabelas simples");
-		for (TabelaSimples tbS : getTbSimples()){
-			insertSQL += tbS.inserirInSQL();
+		System.out.println("A ler " + count + " tabelas");
+		
+		for (Tabela tb : getTb()){
+			insertSQL += tb.inserirInSQL();
 			
 			System.out.println("faltam " + --count + " tabelas");
 		}
-		System.out.println("Finalizou leitura tabelas simples\n");
+		
+		System.out.println("Finalizou leitura tabelas\n");
 		
 		insertSQL = insertSQL.substring(0, insertSQL.length() - 2);
 		
 		return insertSQL;
 	}
+	
 	
 	/**
 	 * Armazenar o arquivo em memória secundária

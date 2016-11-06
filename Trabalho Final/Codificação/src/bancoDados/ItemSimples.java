@@ -11,7 +11,7 @@ import java.util.LinkedList;
  */
 public class ItemSimples{
 	/**
-	 * Código único para cada órgão
+	 * Código único para cada Item
 	 * Descrição inteligível
 	 * Códigos dos itens relacionados
 	 */
@@ -169,6 +169,8 @@ public class ItemSimples{
 		if (!getCodRef().isEmpty())
 			for (Integer cod : getCodRef())
 				toSQL += cod + ", ";
+		
+		System.out.println("pegou referencias");
 		
 		toSQL = toSQL.substring(0, toSQL.length() - 2) + ");\n";
 		

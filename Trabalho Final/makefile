@@ -12,7 +12,7 @@ DOCUMENTADOR = javadoc
 # Diretórios 
 ###################
 # Atual, que contém todas as pastas necessárias
-DIR_BASE = <colocar o seu diretório aqui>/Trabalho\ Final/Codificação/
+DIR_BASE = /home/rodrigo/Dropbox/UnB/UnB\ 2016.2/Banco\ de\ Dados/Trabalhos/Trabalho\ Final/Codificação/
 # Arquivos-fonte, puros
 DIR_FONTES = $(DIR_BASE)src/
 # Arquivos executáveis
@@ -51,18 +51,18 @@ help:
 
 compilar:
 	@clear
-	@echo "Compilando arquivos em '$(DIR_FONTES)'"
+	@echo "Compilando arquivos em '$(DIR_FONTES)':\n"
 	@$(COMPILADOR) -d $(DIR_BINARIO) -cp $(DIR_BINARIO):. -sourcepath $(DIR_FONTES):. $(DIR_FONTES)*/*.java -Xlint
-	@echo "Compilação concluída\n"
+	@echo "Compilação concluída"
 	
 	
 executar: clear_bin compilar
-	@echo "A executar '$(ARQ_PRINCIPAL)'"
+	@echo "A executar '$(ARQ_PRINCIPAL)':\n"
 	@$(EXECUTADOR) $(TAGS_MEMORIA) -cp $(DIR_BINARIO):. $(ARQ_PRINCIPAL)
 	@echo "Aplicação finalizada"
 
 documentar: clear_doc compilar
-	@echo "Gerando a documentação"
+	@echo "Gerando a documentação:\n"
 	@$(DOCUMENTADOR) -d $(DIR_DOCUMENTACAO) -sourcepath $(DIR_FONTES):. $(DIR_FONTES)*/*.java -docencoding UTF-8 -charset UTF-8 $(TAGS_DOCUMENTACAO)
 	@echo "\nDocumentação salva em '$(DIR_DOCUMENTACAO)'"
 
@@ -70,13 +70,13 @@ clear_all: clear_bin clear_doc
 	@clear
 
 clear_bin:
-	@echo "Excluindo todos os arquivos de '$(DIR_BINARIO)'"
+	@echo "Excluindo todos os arquivos de '$(DIR_BINARIO)':\n"
 	@rm -rf $(DIR_BINARIO)
 	@mkdir $(DIR_BINARIO)
 	@echo "Arquivos excluídos, pasta '$(DIR_BINARIO)' vazia"
 
 clear_doc:
-	@echo "Excluindo todos os arquivos de '$(DIR_DOCUMENTACAO)'"
+	@echo "Excluindo todos os arquivos de '$(DIR_DOCUMENTACAO)':\n"
 	@rm -rf $(DIR_DOCUMENTACAO)
 	@mkdir $(DIR_DOCUMENTACAO)
 	@echo "Arquivos excluídos, pasta '$(DIR_DOCUMENTACAO)' vazia"

@@ -14,9 +14,10 @@ import java.util.LinkedList;
 public class TabelaSimples{
 	/**
 	 * Lista de itens pertencentes à tabela
+	 * Campos pertencentes à tabela
 	 * Identificador da tabela
 	 */
-	private LinkedList<ItemSimples> itens;
+	private LinkedList<ItemSimples> itensS;
 	private LinkedList<Campo> campos;
 	private String nome;
 	
@@ -26,7 +27,7 @@ public class TabelaSimples{
 	 * Construção de uma Tabela Simples por maneira default
 	 */
 	public TabelaSimples (){
-		setItens(new LinkedList<ItemSimples>());
+		setItensS(new LinkedList<ItemSimples>());
 		
 		setCampos(new LinkedList<Campo>());
 		
@@ -38,10 +39,10 @@ public class TabelaSimples{
 	 * os itens
 	 * @param itens Itens a serem atribuídos
 	 */
-	public TabelaSimples (LinkedList<ItemSimples> itens){
+	public TabelaSimples (LinkedList<ItemSimples> itensS){
 		this();
 		
-		setItens(itens);
+		setItensS(itensS);
 	}
 	
 	/**
@@ -98,16 +99,16 @@ public class TabelaSimples{
 	 * Valor atribuído aos itens da tabela
 	 * @return Itens existentes na tabela
 	 */
-	public LinkedList<ItemSimples> getItens (){
-		return this.itens;
+	public LinkedList<ItemSimples> getItensS (){
+		return this.itensS;
 	}
 	
 	/**
 	 * Atribuição de itens à tabela
 	 * @param itens Itens a serem atribuídos
 	 */
-	public void setItens (LinkedList<ItemSimples> itens){
-		this.itens = itens;
+	public void setItensS (LinkedList<ItemSimples> itensS){
+		this.itensS = itensS;
 	}
 	
 	/**
@@ -148,7 +149,7 @@ public class TabelaSimples{
 	 * Ordenação dos itens da tabela
 	 */
 	public void ordenarItens (){
-		Collections.sort(getItens(), new Comparator<ItemSimples>() {
+		Collections.sort(getItensS(), new Comparator<ItemSimples>() {
 		    public int compare (ItemSimples objetoUm, ItemSimples objetoDois) {
 		        return objetoUm.compareTo(objetoDois);
 		    }
@@ -194,14 +195,17 @@ public class TabelaSimples{
 	public String inserirInSQL(){
 		String toSQL = "";
 		
-		if (!getItens().isEmpty()){
-			//System.out.println("Entrou no insert, com " + getItens().size() + " itens");
+		if (!getItensS().isEmpty()){
+			int tot = getItensS().size();
+			System.out.println("Entrou no insert, com " + tot + " itens");
 			int contador = 1;
 			
 			ordenarItens();
 			
-			for (ItemSimples item : getItens()){
-				//System.out.println("Item novo");
+			System.out.println("Já ordenou");
+			
+			for (ItemSimples item : getItensS()){
+				System.out.println("Faltam " + --tot);
 				String linha = "insert into ";
 				
 				linha += getNome() + " (";
@@ -209,12 +213,16 @@ public class TabelaSimples{
 				for (Campo campo : getCampos())
 					linha += campo.getDescricao() + ", ";
 				
+				System.out.println("pegou campos");
+				
 				linha = linha.substring(0, linha.length() - 2) + ") ";
 				
 				if (item.getCodigo() == 999999999)
 					item.setCodigo(contador);
 				
 				linha += item.inserirNoSQL();
+				
+				System.out.println("inseriu na string\n");
 				
 				toSQL += linha;
 				
