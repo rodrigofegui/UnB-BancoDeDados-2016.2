@@ -136,33 +136,39 @@ public class BancoDeDados{
 	 */
 	private void iniciarEspecifico (){
 		LinkedList<Campo> campos = new LinkedList<Campo>();
-		campos.add(new Campo("cdOrSup", "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nmOrSup", "varchar(50)"));
-		getTbSimples().add(new TabelaSimples("OrgaoSuperior", campos));
+		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		getTbSimples().add(new TabelaSimples("Orgao_Superior", campos));
 		
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cdOrSub", "integer unsigned", "PRIMARY KEY "));
-		campos.add(new Campo("nmOrSub", "varchar(50)"));
-		getTbSimples().add(new TabelaSimples("OrgaoSubordinado", campos));
+		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY "));
+		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		campos.add(new Campo("cod_superior"));//, "integer unsigned"));
+		getTbSimples().add(new TabelaSimples("Orgao_Subordinado", campos));
 		
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cdUniGes", "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nmUniGes", "varchar(50)"));
-		getTbSimples().add(new TabelaSimples("UnidadeGestora", campos));
+		campos.add(new Campo("codigo"));// "int(255) unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(255)", "NOT NULL"));
+		campos.add(new Campo("cod_superior"));//, "int(255)", "NOT NULL"));
+		campos.add(new Campo("cod_subordinado"));//, "int"));
+		getTbSimples().add(new TabelaSimples("Unidade_Gestora", campos));
 		
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cdFun", "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nmFun", "varchar(25)"));
+		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(25)"));
+		campos.add(new Campo("cod_superior"));
+		campos.add(new Campo("cod_subordinado"));
+		campos.add(new Campo("cod_unidade_gestora"));
 		getTbSimples().add(new TabelaSimples("Funcao", campos));
 		
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cdSubFun", "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nmSubFun", "varchar(55)"));
-		getTbSimples().add(new TabelaSimples("SubFuncao", campos));
+		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));// "varchar(55)"));
+		getTbSimples().add(new TabelaSimples("Sub_Funcao", campos));
 		
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cdProg", "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nmProg", "varchar(115)"));
+		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(115)"));
 		getTbSimples().add(new TabelaSimples("Programa", campos));
 		
 		/*
@@ -229,6 +235,43 @@ public class BancoDeDados{
 		
 		//System.out.println("Qnt de partes -> " + partes.length);
 		if (!partes[0].equals("Detalhamento das informa��es n�o dispon�vel.")){
+			/*	Órgão Superior *
+			TabelaSimples tbS = getTbSimples().get(0);
+			ItemSimples itemS = new ItemSimples();
+			itemS.setCodigo(Integer.parseInt(partes[0]));
+			itemS.setDescricao(partes[1]);
+			inserirItemTabela (itemS, tbS);
+			
+			/*	Órgão Subordinado *
+			tbS = getTbSimples().get(1);
+			itemS = new ItemSimples();
+			itemS.setCodigo(Integer.parseInt(partes[2]));
+			itemS.setDescricao(partes[3]);
+			itemS.getCodRef().add(Integer.parseInt(partes[0]));
+			inserirItemTabela (itemS, tbS);
+			
+			/*	Unidade Gestora *
+			tbS = getTbSimples().get(2);
+			itemS = new ItemSimples();
+			itemS.setCodigo(Integer.parseInt(partes[4]));
+			itemS.setDescricao(partes[5]);
+			itemS.getCodRef().add(Integer.parseInt(partes[0]));
+			itemS.getCodRef().add(Integer.parseInt(partes[2]));
+			inserirItemTabela (itemS, tbS);
+			
+			/*	Função *
+			tbS = getTbSimples().get(3);
+			itemS = new ItemSimples();
+			itemS.setCodigo(Integer.parseInt(partes[6]));
+			itemS.setDescricao(partes[7]);
+			itemS.getCodRef().add(Integer.parseInt(partes[0]));
+			itemS.getCodRef().add(Integer.parseInt(partes[2]));
+			itemS.getCodRef().add(Integer.parseInt(partes[4]));
+			inserirItemTabela (itemS, tbS);
+			//*/
+			
+			
+			//*
 			for (TabelaSimples tb : getTbSimples()){
 				/*
 				System.out.println("Codigo -> " + partes[i]);
@@ -239,8 +282,18 @@ public class BancoDeDados{
 				inserirItemTabela(itemS, tb);
 				
 				i += 2;
+				//*/
 			}
-			
+			//*/
+			for (int ind = 1; ind < 4; ind++){
+				int contador = 0;
+				ItemSimples itemS = getTbSimples().get(ind).getItens().getLast();
+				
+				for (int j = 0; j < ind; j++, contador += 2)
+					itemS.getCodRef().add(Integer.parseInt(partes[contador]));
+					
+			}
+				
 			//System.out.println("\n\n");
 		}
 		
@@ -266,7 +319,8 @@ public class BancoDeDados{
 	
 	
 	/**
-	 * Gerar script responsável por criar o BD desenvolvido
+	 * Gerar script responsável por criar o BD desenvolvido,
+	 * com a inserção dos dados
 	 * @return Script para criação do BD
 	 */
 	public String scriptSQL(){
@@ -293,10 +347,32 @@ public class BancoDeDados{
 	}
 	
 	/**
+	 * Gerar o script responsável por inserir os dados no
+	 * BD desenvolvido
+	 * @return Script para a inserção no BD
+	 */
+	public String insertInSQL (){
+		String insertSQL = "";
+		int count = getTbSimples().size();
+		
+		System.out.println("A ler " + count + " tabelas simples");
+		for (TabelaSimples tbS : getTbSimples()){
+			insertSQL += tbS.inserirInSQL();
+			
+			System.out.println("faltam " + --count + " tabelas");
+		}
+		System.out.println("Finalizou leitura tabelas simples\n");
+		
+		insertSQL = insertSQL.substring(0, insertSQL.length() - 2);
+		
+		return insertSQL;
+	}
+	
+	/**
 	 * Armazenar o arquivo em memória secundária
 	 */
 	public void escreverScriptSQL(){
-		String nomeArq = "create" + getNome() + ".sql";
+		String nomeArq = "Scripts/full" + getNome() + ".sql";
 		
 		escreverScriptSQL(nomeArq);
 	}
@@ -310,6 +386,37 @@ public class BancoDeDados{
 		try{			
 			String caminho = nomeArq;
 			String scriptSQL = scriptSQL();
+
+			BufferedWriter gravarArq = new BufferedWriter(new FileWriter (caminho));
+			
+			gravarArq.append(scriptSQL + "\n");
+			
+			gravarArq.close();
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Construção do script que insere os dados no BD
+	 * em SQL, no diretório padrão
+	 */
+	public void scriptInsertInSQL (){
+		String nomeArq = "Scripts/insert" + getNome() + ".sql";
+		
+		scriptInsertInSQL(nomeArq);
+	}
+	
+	/**
+	 * Construção do script que insere os dados no BD
+	 * em SQL, conforme o diretório específico
+	 * @param nomeArq Nome do arquivo do script
+	 */
+	public void scriptInsertInSQL (String nomeArq){
+		try{			
+			String caminho = nomeArq;
+			String scriptSQL = insertInSQL();
 
 			BufferedWriter gravarArq = new BufferedWriter(new FileWriter (caminho));
 			

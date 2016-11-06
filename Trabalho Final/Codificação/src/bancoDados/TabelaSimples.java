@@ -195,11 +195,13 @@ public class TabelaSimples{
 		String toSQL = "";
 		
 		if (!getItens().isEmpty()){
+			//System.out.println("Entrou no insert, com " + getItens().size() + " itens");
 			int contador = 1;
 			
 			ordenarItens();
 			
 			for (ItemSimples item : getItens()){
+				//System.out.println("Item novo");
 				String linha = "insert into ";
 				
 				linha += getNome() + " (";
@@ -220,6 +222,7 @@ public class TabelaSimples{
 			}
 			
 		}else{
+			//System.out.println("Sem itens");
 			toSQL = getNome() + ": ";
 			
 			toSQL += "Sem atributos, mas com os campos:\n";
