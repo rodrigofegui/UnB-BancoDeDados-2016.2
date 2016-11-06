@@ -37,7 +37,7 @@ public class TabelaSimples{
 	/**
 	 * Construção de uma Tabela Simples conhecendo
 	 * os itens
-	 * @param itens Itens a serem atribuídos
+	 * @param itensS Itens a serem atribuídos
 	 */
 	public TabelaSimples (LinkedList<ItemSimples> itensS){
 		this();
@@ -105,7 +105,7 @@ public class TabelaSimples{
 	
 	/**
 	 * Atribuição de itens à tabela
-	 * @param itens Itens a serem atribuídos
+	 * @param itensS Itens a serem atribuídos
 	 */
 	public void setItensS (LinkedList<ItemSimples> itensS){
 		this.itensS = itensS;

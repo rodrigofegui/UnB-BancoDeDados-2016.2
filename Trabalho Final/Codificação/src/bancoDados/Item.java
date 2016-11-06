@@ -101,7 +101,7 @@ public class Item extends ItemSimples{
 	
 	/**
 	 * Atribuição dos códigos relacionados aos itens
-	 * @param codRefStr Códigos relacinados
+	 * @param codRefFlo Códigos relacinados
 	 */
 
 	public void setCodRefFlo(float codRefFlo) {
