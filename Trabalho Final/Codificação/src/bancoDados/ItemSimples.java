@@ -18,6 +18,7 @@ public class ItemSimples{
 	private int codigo;
 	private String descricao;
 	private LinkedList<Integer> codRef;
+	public final static int maxInt = 999999999;
 	
 	
 	
@@ -25,7 +26,7 @@ public class ItemSimples{
 	 * Construção de um Item Simples por maneira default
 	 */
 	public ItemSimples (){
-		setCodigo(999999999);
+		setCodigo(maxInt);
 		
 		setDescricao("");
 		

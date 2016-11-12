@@ -114,16 +114,47 @@ public class Item extends ItemSimples{
 	/**
 	 * Comparação básica entre dois itens
 	 * @param objetoDois Item a ser comparado
-	 * @return Valor da comparação. 0 se forem iguais, senão retorna a subtração dos códigos.
+	 * @return Valor da comparação. 0 se forem iguais, senão retorna a subtração dos códigos
+	 * ou o valor máximo para inteiro.
 	 */
 	public int compareTo(Item objetoDois) {
-		if (equals(objetoDois) || this.getDescricao().equals(objetoDois.getDescricao()))
+		boolean codigoNulo = false;
+		boolean codigoStrNulo = false;
+		
+		/*
+		System.out.println("Compando:");
+		System.out.println("Codigo -> " + getCodigo());
+		System.out.println("Codigo Str -> " + getCodigoStr());
+		System.out.println("Com:");
+		System.out.println("Codigo -> " + objetoDois.getCodigo());
+		System.out.println("Codigo Str -> " + objetoDois.getCodigoStr() + "\n\n");
+		//*/
+		
+		if (equals(objetoDois))
 			return 0;
 		
-		if(this.getCodigoStr().equals(objetoDois.getCodigoStr()))
-			return 9999999;
+		if ((getCodigo() == maxInt) || (objetoDois.getCodigo() == maxInt))
+			codigoNulo = true;
 		
-		return -1;
+		if (getCodigoStr().equals("") || objetoDois.getCodigoStr().equals(""))
+			codigoStrNulo = true;
+		
+		if (!codigoNulo && codigoStrNulo && (getCodigo() == objetoDois.getCodigo()))
+			return 0;
+		
+		if (codigoNulo && !codigoStrNulo && (getCodigoStr().equals(objetoDois.getCodigoStr())))
+			return 0;
+		
+		if (codigoNulo && codigoStrNulo && (getDescricao().equals(objetoDois.getDescricao())))
+			return 0;
+		
+		if (!codigoNulo)
+			return getCodigo() - objetoDois.getCodigo();
+		
+		if (!codigoStrNulo)
+			return getCodigoStr().compareTo(objetoDois.getCodigoStr());
+		
+		return maxInt;
 	}
 	
 	/**
@@ -148,8 +179,13 @@ public class Item extends ItemSimples{
 				toSQL += cod + ", ";
 		
 		if (!getCodRefStr().isEmpty())
-			for (String cod : getCodRefStr())
-				toSQL += tratarCaracteristicas(cod) + ", ";
+			for (String cod : getCodRefStr()){
+				if (cod.contains("STR_TO")){
+					toSQL += tratarCaracteristicas(cod) + ", ";
+				}else
+					toSQL += "'" + tratarCaracteristicas(cod) + "', ";
+				
+			}
 		
 		if (getCodRefFlo() != 0.0f)
 			toSQL += getCodRefFlo() + ", ";
@@ -174,6 +210,6 @@ public class Item extends ItemSimples{
 		if (entrada.length() <= 1)
 			return "NULL";
 		
-		return "'" + entrada + "'";
+		return entrada;
 	}
 }

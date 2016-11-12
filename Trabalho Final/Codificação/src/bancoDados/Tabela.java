@@ -1,5 +1,7 @@
 package bancoDados;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 /**
@@ -77,13 +79,13 @@ public class Tabela extends TabelaSimples{
 		String toSQL = "";
 		
 		if (!getItens().isEmpty()){
-			//int tot = getItens().size();
+			int tot = getItens().size();
 			//System.out.println("Entrou no insert, com " + tot + " itens");
 			int contador = 1;
 			
 			ordenarItens();
 			
-			//System.out.println("Já ordenou");
+			//System.out.println("Total d");
 			
 			for (Item item : getItens()){
 				//System.out.println("Faltam " + --tot);
@@ -98,7 +100,7 @@ public class Tabela extends TabelaSimples{
 				
 				linha = linha.substring(0, linha.length() - 2) + ") ";
 				
-				if ((item.getCodigo() == 999999999)
+				if ((item.getCodigo() == Item.maxInt)
 					&& (item.getCodigoStr().equals("")))
 					item.setCodigo(contador);
 				
@@ -126,5 +128,17 @@ public class Tabela extends TabelaSimples{
 		toSQL += "\n\n";
 		
 		return toSQL;
+	}
+	
+	
+	/**
+	 * Ordenação dos itens da tabela
+	 */
+	public void ordenarItens (){
+		Collections.sort(getItens(), new Comparator<Item>() {
+		    public int compare (Item objetoUm, Item objetoDois) {
+		        return objetoUm.compareTo(objetoDois);
+		    }
+		});
 	}
 }

@@ -140,7 +140,7 @@ public class BancoDeDados{
 		campos.add(new Campo("codigo"));
 		campos.add(new Campo("nome"));
 		campos.add(new Campo("linguagem_cidada"));
-		getTb().add(new Tabela("Acao", campos));
+		getTb().add(new Tabela("ACAO", campos));
 		
 		// 1:
 		campos = new LinkedList<Campo>();
@@ -149,37 +149,38 @@ public class BancoDeDados{
 		campos.add(new Campo("cod_superior"));
 		campos.add(new Campo("cod_subordinado"));
 		campos.add(new Campo("cod_unidade_gestora"));
-		getTb().add(new Tabela("Funcao", campos));
+		getTb().add(new Tabela("FUNCAO", campos));
 		
 		// 2:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cod_fun"));
 		campos.add(new Campo("cod_sub_fun"));
-		getTb().add(new Tabela("Fun_Subfun", campos));
+		getTb().add(new Tabela("FUN_SUBFUN", campos));
 		
 		// 3:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY "));
 		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
 		campos.add(new Campo("cod_superior"));//, "integer unsigned"));
-		getTb().add(new Tabela("Orgao_Subordinado", campos));
+		getTb().add(new Tabela("ORGAO_SUBORDINADO", campos));
 		
 		// 4:
+		campos = new LinkedList<Campo>();
 		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY"));
 		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
-		getTb().add(new Tabela("Orgao_Superior", campos));
+		getTb().add(new Tabela("ORGAO_SUPERIOR", campos));
 		
 		// 5:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("documento_pagamento"));
 		campos.add(new Campo("gestao_pagamento"));
-		getTb().add(new Tabela("Pagamento", campos));
+		getTb().add(new Tabela("PAGAMENTO", campos));
 		
 		// 6:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cpf"));
 		campos.add(new Campo("nome"));
-		getTb().add(new Tabela("Pessoa", campos));
+		getTb().add(new Tabela("PESSOA", campos));
 		
 		// 7:
 		campos = new LinkedList<Campo>();
@@ -187,31 +188,31 @@ public class BancoDeDados{
 		campos.add(new Campo("doc_pag"));
 		campos.add(new Campo("data_pagamento"));
 		campos.add(new Campo("valor"));
-		getTb().add(new Tabela("Pessoa_Pag", campos));
+		getTb().add(new Tabela("PESSOA_PAG", campos));
 		
 		// 8:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
 		campos.add(new Campo("nome"));//, "varchar(115)"));
-		getTb().add(new Tabela("Programa", campos));
+		getTb().add(new Tabela("PROGRAMA", campos));
 		
 		// 9:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cod_prog"));
 		campos.add(new Campo("cod_acao"));
-		getTb().add(new Tabela("Prog_Acao", campos));
+		getTb().add(new Tabela("PROG_ACAO", campos));
 		
 		// 10:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cod_prog"));
 		campos.add(new Campo("cod_sub"));
-		getTb().add(new Tabela("Prog_Orgao", campos));
+		getTb().add(new Tabela("PROG_ORGAO", campos));
 		
 		// 11:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
 		campos.add(new Campo("nome"));// "varchar(55)"));
-		getTb().add(new Tabela("Sub_Funcao", campos));
+		getTb().add(new Tabela("SUB_FUNCAO", campos));
 			
 		// 12:
 		campos = new LinkedList<Campo>();
@@ -219,7 +220,7 @@ public class BancoDeDados{
 		campos.add(new Campo("nome"));//, "varchar(255)", "NOT NULL"));
 		campos.add(new Campo("cod_superior"));//, "int(255)", "NOT NULL"));
 		campos.add(new Campo("cod_subordinado"));//, "int"));
-		getTb().add(new Tabela("Unidade_Gestora", campos));
+		getTb().add(new Tabela("UNIDADE_GESTORA", campos));
 	}
 
 	
@@ -257,8 +258,9 @@ public class BancoDeDados{
 			String linhaBruta = leitura.readLine();
 			
 			while (leitura.ready()){
-				linhaBruta = leitura.readLine();
+				linhaBruta = leitura.readLine().replaceAll("�", "");
 				
+				//System.out.println("Depois ->\n" + linhaBruta);
 				tOfETL(linhaBruta);
 			}
 			
@@ -285,7 +287,7 @@ public class BancoDeDados{
 
 		//System.out.println("Qnt de partes -> " + partes.length);
 		//*
-		if (!partes[0].equals("Detalhamento das informa��es n�o dispon�vel.")){
+		if (!partes[0].equals("Detalhamento das informaes no disponvel.")){
 			//System.out.println("Entrou na transformação");
 			Item item;
 			Tabela tb;
@@ -349,7 +351,7 @@ public class BancoDeDados{
 			item = new Item();
 			item.setCodigoStr(partes[15]);
 			item.setDescricao(partes[17]);
-			item.getCodRefStr().add(partes[19]);
+			item.getCodRefStr().add("STR_TO_DATE('" + partes[19] + "', '%e/%m/%Y')");
 			partes[20] = partes[20].replace(',', '.');
 			item.setCodRefFlo(Float.parseFloat(partes[20]));
 			inserirItemTabela (item, tb);
@@ -402,15 +404,15 @@ public class BancoDeDados{
 	 * @param tabela Tabela para inserção do item
 	 */
 	public void inserirItemTabela (ItemSimples item, TabelaSimples tabela){
-		boolean condicao = true;
+		boolean naoExiste = true;
 		
 		for (ItemSimples itemBusca : tabela.getItensS())
 			if (item.compareTo(itemBusca) == 0){
-				condicao = false;
+				naoExiste = false;
 				break;
 			}
 		
-		if (condicao)
+		if (naoExiste)
 			tabela.getItensS().add(item);
 	}
 	
@@ -420,15 +422,15 @@ public class BancoDeDados{
 	 * @param tabela Tabela para inserção do item
 	 */
 	public void inserirItemTabela (Item item, Tabela tabela){
-		boolean condicao = true;
+		boolean naoExiste = true;
 		
 		for (Item itemBusca : tabela.getItens())
 			if (item.compareTo(itemBusca) == 0){
-				condicao = false;
+				naoExiste = false;
 				break;
 			}
 		
-		if (condicao)
+		if (naoExiste)
 			tabela.getItens().add(item);
 	}
 	
@@ -476,9 +478,9 @@ public class BancoDeDados{
 		System.out.println("A ler " + count + " tabelas");
 		
 		for (Tabela tb : getTb()){
-			insertSQL += tb.inserirInSQL();
+			System.out.println("\nFaltam " + --count + " tabelas");
 			
-			System.out.println("faltam " + --count + " tabelas");
+			insertSQL += tb.inserirInSQL();
 		}
 		
 		System.out.println("Finalizou leitura tabelas\n");

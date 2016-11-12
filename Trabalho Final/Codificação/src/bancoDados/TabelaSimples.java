@@ -148,7 +148,7 @@ public class TabelaSimples{
 	/**
 	 * Ordenação dos itens da tabela
 	 */
-	public void ordenarItens (){
+	public void ordenarItensS (){
 		Collections.sort(getItensS(), new Comparator<ItemSimples>() {
 		    public int compare (ItemSimples objetoUm, ItemSimples objetoDois) {
 		        return objetoUm.compareTo(objetoDois);
@@ -200,7 +200,7 @@ public class TabelaSimples{
 			System.out.println("Entrou no insert, com " + tot + " itens");
 			int contador = 1;
 			
-			ordenarItens();
+			ordenarItensS();
 			
 			System.out.println("Já ordenou");
 			
@@ -217,7 +217,7 @@ public class TabelaSimples{
 				
 				linha = linha.substring(0, linha.length() - 2) + ") ";
 				
-				if (item.getCodigo() == 999999999)
+				if (item.getCodigo() == Item.maxInt)
 					item.setCodigo(contador);
 				
 				linha += item.inserirNoSQL();
