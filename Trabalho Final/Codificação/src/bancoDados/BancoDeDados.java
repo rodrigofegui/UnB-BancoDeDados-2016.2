@@ -137,12 +137,26 @@ public class BancoDeDados{
 		
 		// 0:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));
-		campos.add(new Campo("nome"));
-		campos.add(new Campo("linguagem_cidada"));
-		getTb().add(new Tabela("ACAO", campos));
+		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		getTb().add(new Tabela("ORGAO_SUPERIOR", campos));
 		
 		// 1:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY "));
+		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		campos.add(new Campo("cod_superior"));//, "integer unsigned"));
+		getTb().add(new Tabela("ORGAO_SUBORDINADO", campos));
+		
+		// 2:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("codigo"));// "int(255) unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(255)", "NOT NULL"));
+		campos.add(new Campo("cod_superior"));//, "int(255)", "NOT NULL"));
+		campos.add(new Campo("cod_subordinado"));//, "int"));
+		getTb().add(new Tabela("UNIDADE_GESTORA", campos));
+		
+		// 3:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
 		campos.add(new Campo("nome"));//, "varchar(25)"));
@@ -151,50 +165,36 @@ public class BancoDeDados{
 		campos.add(new Campo("cod_unidade_gestora"));
 		getTb().add(new Tabela("FUNCAO", campos));
 		
-		// 2:
-		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cod_fun"));
-		campos.add(new Campo("cod_sub_fun"));
-		getTb().add(new Tabela("FUN_SUBFUN", campos));
-		
-		// 3:
-		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY "));
-		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
-		campos.add(new Campo("cod_superior"));//, "integer unsigned"));
-		getTb().add(new Tabela("ORGAO_SUBORDINADO", campos));
-		
 		// 4:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
-		getTb().add(new Tabela("ORGAO_SUPERIOR", campos));
+		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));// "varchar(55)"));
+		getTb().add(new Tabela("SUB_FUNCAO", campos));
 		
 		// 5:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("documento_pagamento"));
-		campos.add(new Campo("gestao_pagamento"));
-		getTb().add(new Tabela("PAGAMENTO", campos));
-		
+		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
+		campos.add(new Campo("nome"));//, "varchar(115)"));
+		getTb().add(new Tabela("PROGRAMA", campos));
+				
 		// 6:
+		campos = new LinkedList<Campo>();
+		campos.add(new Campo("codigo"));
+		campos.add(new Campo("nome"));
+		campos.add(new Campo("linguagem_cidada"));
+		getTb().add(new Tabela("ACAO", campos));
+		
+		// 7:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cpf"));
 		campos.add(new Campo("nome"));
 		getTb().add(new Tabela("PESSOA", campos));
 		
-		// 7:
-		campos = new LinkedList<Campo>();
-		campos.add(new Campo("cpf_pessoa"));
-		campos.add(new Campo("doc_pag"));
-		campos.add(new Campo("data_pagamento"));
-		campos.add(new Campo("valor"));
-		getTb().add(new Tabela("PESSOA_PAG", campos));
-		
 		// 8:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));//, "varchar(115)"));
-		getTb().add(new Tabela("PROGRAMA", campos));
+		campos.add(new Campo("documento_pagamento"));
+		campos.add(new Campo("gestao_pagamento"));
+		getTb().add(new Tabela("PAGAMENTO", campos));
 		
 		// 9:
 		campos = new LinkedList<Campo>();
@@ -210,17 +210,17 @@ public class BancoDeDados{
 		
 		// 11:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));// "varchar(55)"));
-		getTb().add(new Tabela("SUB_FUNCAO", campos));
-			
+		campos.add(new Campo("cod_fun"));
+		campos.add(new Campo("cod_sub_fun"));
+		getTb().add(new Tabela("FUN_SUBFUN", campos));
+		
 		// 12:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));// "int(255) unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));//, "varchar(255)", "NOT NULL"));
-		campos.add(new Campo("cod_superior"));//, "int(255)", "NOT NULL"));
-		campos.add(new Campo("cod_subordinado"));//, "int"));
-		getTb().add(new Tabela("UNIDADE_GESTORA", campos));
+		campos.add(new Campo("cpf_pessoa"));
+		campos.add(new Campo("doc_pag"));
+		campos.add(new Campo("data_pagamento"));
+		campos.add(new Campo("valor"));
+		getTb().add(new Tabela("PESSOA_PAG", campos));		
 	}
 
 	
@@ -293,7 +293,7 @@ public class BancoDeDados{
 			Tabela tb;
 			
 			/*	Ação */
-			tb = getTb().get(0);
+			tb = getTb().get(6);
 			item = new Item();
 			item.setCodigoStr(partes[12]);
 			item.setDescricao(partes[13]);
@@ -301,7 +301,7 @@ public class BancoDeDados{
 			inserirItemTabela (item, tb);
 			
 			/*	Função */
-			tb = getTb().get(1);
+			tb = getTb().get(3);
 			item = new Item();
 			item.setCodigo(Integer.parseInt(partes[6]));
 			item.setDescricao(partes[7]);
@@ -311,14 +311,14 @@ public class BancoDeDados{
 			inserirItemTabela (item, tb);
 			
 			/*	Função-SubFunção */
-			tb = getTb().get(2);
+			tb = getTb().get(11);
 			item = new Item();
 			item.setCodigo(Integer.parseInt(partes[6]));
 			item.getCodRef().add(Integer.parseInt(partes[8]));
 			inserirItemTabela (item, tb);
 			
 			/*	Órgão Subordinado */
-			tb = getTb().get(3);
+			tb = getTb().get(1);
 			item = new Item();
 			item.setCodigo(Integer.parseInt(partes[2]));
 			item.setDescricao(partes[3]);
@@ -326,28 +326,28 @@ public class BancoDeDados{
 			inserirItemTabela (item, tb);
 			
 			/*	Órgão Superior */
-			tb = getTb().get(4);
+			tb = getTb().get(0);
 			item = new Item();
 			item.setCodigo(Integer.parseInt(partes[0]));
 			item.setDescricao(partes[1]);
 			inserirItemTabela (item, tb);
 			
 			/*	Pagamento */
-			tb = getTb().get(5);
+			tb = getTb().get(8);
 			item = new Item();
 			item.setCodigoStr(partes[17]);
 			item.setDescricao(partes[18]);
 			inserirItemTabela (item, tb);
 			
 			/*	Pessoa */
-			tb = getTb().get(6);
+			tb = getTb().get(7);
 			item = new Item();
 			item.setCodigoStr(partes[15]);
 			item.setDescricao(partes[16]);
 			inserirItemTabela (item, tb);
 			
 			/*	Pessoa_Pag */
-			tb = getTb().get(7);
+			tb = getTb().get(12);
 			item = new Item();
 			item.setCodigoStr(partes[15]);
 			item.setDescricao(partes[17]);
@@ -357,7 +357,7 @@ public class BancoDeDados{
 			inserirItemTabela (item, tb);
 			
 			/* Programa */
-			tb = getTb().get(8);
+			tb = getTb().get(5);
 			item = new Item();
 			item.setCodigo(Integer.parseInt(partes[10]));
 			item.setDescricao(partes[11]);
@@ -378,14 +378,14 @@ public class BancoDeDados{
 			inserirItemTabela (item, tb);
 			
 			/* Sub Função */
-			tb = getTb().get(11);
+			tb = getTb().get(4);
 			item = new Item();
 			item.setCodigo(Integer.parseInt(partes[8]));
 			item.setDescricao(partes[9]);
 			inserirItemTabela (item, tb);
 						
 			/*	Unidade Gestora */
-			tb = getTb().get(12);
+			tb = getTb().get(2);
 			item = new Item();
 			item.setCodigo(Integer.parseInt(partes[4]));
 			item.setDescricao(partes[5]);
