@@ -188,6 +188,9 @@ public class BancoDeDados{
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cpf"));
 		campos.add(new Campo("nome"));
+		campos.add(new Campo("cod_superior"));
+		campos.add(new Campo("cod_subordinado"));
+		campos.add(new Campo("codigo_unidade_gestora"));
 		getTb().add(new Tabela("PESSOA", campos));
 		
 		// 8:
@@ -218,6 +221,9 @@ public class BancoDeDados{
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cpf_pessoa"));
 		campos.add(new Campo("doc_pag"));
+		campos.add(new Campo("cod_superior"));
+		campos.add(new Campo("cod_subordinado"));
+		campos.add(new Campo("codigo_unidade_gestora"));
 		campos.add(new Campo("data_pagamento"));
 		campos.add(new Campo("valor"));
 		getTb().add(new Tabela("PESSOA_PAG", campos));		
@@ -344,6 +350,9 @@ public class BancoDeDados{
 			item = new Item();
 			item.setCodigoStr(partes[15]);
 			item.setDescricao(partes[16]);
+			item.getCodRef().add(Integer.parseInt(partes[0]));
+			item.getCodRef().add(Integer.parseInt(partes[2]));
+			item.getCodRef().add(Integer.parseInt(partes[4]));
 			inserirItemTabela (item, tb);
 			
 			/*	Pessoa_Pag */
@@ -351,6 +360,9 @@ public class BancoDeDados{
 			item = new Item();
 			item.setCodigoStr(partes[15]);
 			item.setDescricao(partes[17]);
+			item.getCodRef().add(Integer.parseInt(partes[0]));
+			item.getCodRef().add(Integer.parseInt(partes[2]));
+			item.getCodRef().add(Integer.parseInt(partes[4]));
 			item.getCodRefStr().add("STR_TO_DATE('" + partes[19] + "', '%e/%m/%Y')");
 			partes[20] = partes[20].replace(',', '.');
 			item.setCodRefFlo(Float.parseFloat(partes[20]));

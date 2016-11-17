@@ -18,27 +18,81 @@ USE `trab_bd`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ACAO`
+-- Table structure for table `ORGAO_SUPERIOR`
 --
 
-DROP TABLE IF EXISTS `ACAO`;
+DROP TABLE IF EXISTS `ORGAO_SUPERIOR`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ACAO` (
-  `codigo` varchar(255) NOT NULL DEFAULT '0',
+CREATE TABLE `ORGAO_SUPERIOR` (
+  `codigo` int(255) unsigned NOT NULL DEFAULT '0',
   `nome` varchar(255) NOT NULL,
-  `linguagem_cidada` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ACAO`
+-- Dumping data for table `ORGAO_SUPERIOR`
 --
 
-LOCK TABLES `ACAO` WRITE;
-/*!40000 ALTER TABLE `ACAO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ACAO` ENABLE KEYS */;
+LOCK TABLES `ORGAO_SUPERIOR` WRITE;
+/*!40000 ALTER TABLE `ORGAO_SUPERIOR` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ORGAO_SUPERIOR` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ORGAO_SUBORDINADO`
+--
+
+DROP TABLE IF EXISTS `ORGAO_SUBORDINADO`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ORGAO_SUBORDINADO` (
+  `codigo` int(255) unsigned NOT NULL DEFAULT '0',
+  `nome` varchar(255) NOT NULL,
+  `cod_superior` int(255) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`codigo`,`cod_superior`),
+  KEY `fk_cod_superior` (`cod_superior`),
+  CONSTRAINT `fk_cod_superior` FOREIGN KEY (`cod_superior`) REFERENCES `ORGAO_SUPERIOR` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ORGAO_SUBORDINADO`
+--
+
+LOCK TABLES `ORGAO_SUBORDINADO` WRITE;
+/*!40000 ALTER TABLE `ORGAO_SUBORDINADO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ORGAO_SUBORDINADO` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `UNIDADE_GESTORA`
+--
+
+DROP TABLE IF EXISTS `UNIDADE_GESTORA`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `UNIDADE_GESTORA` (
+  `codigo` int(255) unsigned NOT NULL DEFAULT '0',
+  `nome` varchar(255) NOT NULL,
+  `cod_superior` int(255) unsigned NOT NULL DEFAULT '0',
+  `cod_subordinado` int(255) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`codigo`,`cod_superior`,`cod_subordinado`),
+  KEY `fk_cod_superior_1` (`cod_superior`),
+  KEY `fk_cod_subordinado` (`cod_subordinado`),
+  CONSTRAINT `fk_cod_superior_1` FOREIGN KEY (`cod_superior`) REFERENCES `ORGAO_SUPERIOR` (`codigo`),
+  CONSTRAINT `fk_cod_subordinado` FOREIGN KEY (`cod_subordinado`) REFERENCES `ORGAO_SUBORDINADO` (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `UNIDADE_GESTORA`
+--
+
+LOCK TABLES `UNIDADE_GESTORA` WRITE;
+/*!40000 ALTER TABLE `UNIDADE_GESTORA` DISABLE KEYS */;
+/*!40000 ALTER TABLE `UNIDADE_GESTORA` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -74,65 +128,13 @@ LOCK TABLES `FUNCAO` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `FUN_SUBFUN`
+-- Table structure for table `SUB_FUNCAO`
 --
 
-DROP TABLE IF EXISTS `FUN_SUBFUN`;
+DROP TABLE IF EXISTS `SUB_FUNCAO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `FUN_SUBFUN` (
-  `cod_fun` int(255) unsigned NOT NULL DEFAULT '0',
-  `cod_sub_fun` int(255) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`cod_fun`,`cod_sub_fun`),
-  KEY `fk_cod_sub_fun` (`cod_sub_fun`),
-  CONSTRAINT `fk_cod_fun` FOREIGN KEY (`cod_fun`) REFERENCES `FUNCAO` (`codigo`),
-  CONSTRAINT `fk_cod_sub_fun` FOREIGN KEY (`cod_sub_fun`) REFERENCES `SUB_FUNCAO` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `FUN_SUBFUN`
---
-
-LOCK TABLES `FUN_SUBFUN` WRITE;
-/*!40000 ALTER TABLE `FUN_SUBFUN` DISABLE KEYS */;
-/*!40000 ALTER TABLE `FUN_SUBFUN` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ORGAO_SUBORDINADO`
---
-
-DROP TABLE IF EXISTS `ORGAO_SUBORDINADO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ORGAO_SUBORDINADO` (
-  `codigo` int(255) unsigned NOT NULL DEFAULT '0',
-  `nome` varchar(255) NOT NULL,
-  `cod_superior` int(255) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`codigo`,`cod_superior`),
-  KEY `fk_cod_superior` (`cod_superior`),
-  CONSTRAINT `fk_cod_superior` FOREIGN KEY (`cod_superior`) REFERENCES `ORGAO_SUPERIOR` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ORGAO_SUBORDINADO`
---
-
-LOCK TABLES `ORGAO_SUBORDINADO` WRITE;
-/*!40000 ALTER TABLE `ORGAO_SUBORDINADO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ORGAO_SUBORDINADO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ORGAO_SUPERIOR`
---
-
-DROP TABLE IF EXISTS `ORGAO_SUPERIOR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ORGAO_SUPERIOR` (
+CREATE TABLE `SUB_FUNCAO` (
   `codigo` int(255) unsigned NOT NULL DEFAULT '0',
   `nome` varchar(255) NOT NULL,
   PRIMARY KEY (`codigo`)
@@ -140,86 +142,12 @@ CREATE TABLE `ORGAO_SUPERIOR` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ORGAO_SUPERIOR`
+-- Dumping data for table `SUB_FUNCAO`
 --
 
-LOCK TABLES `ORGAO_SUPERIOR` WRITE;
-/*!40000 ALTER TABLE `ORGAO_SUPERIOR` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ORGAO_SUPERIOR` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `PAGAMENTO`
---
-
-DROP TABLE IF EXISTS `PAGAMENTO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `PAGAMENTO` (
-  `documento_pagamento` varchar(255) NOT NULL DEFAULT '0',
-  `gestao_pagamento` int(255) NOT NULL,
-  PRIMARY KEY (`documento_pagamento`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `PAGAMENTO`
---
-
-LOCK TABLES `PAGAMENTO` WRITE;
-/*!40000 ALTER TABLE `PAGAMENTO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PAGAMENTO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `PESSOA`
---
-
-DROP TABLE IF EXISTS `PESSOA`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `PESSOA` (
-  `cpf` varchar(20) NOT NULL DEFAULT '0',
-  `nome` varchar(255) NOT NULL,
-  PRIMARY KEY (`cpf`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `PESSOA`
---
-
-LOCK TABLES `PESSOA` WRITE;
-/*!40000 ALTER TABLE `PESSOA` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PESSOA` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `PESSOA_PAG`
---
-
-DROP TABLE IF EXISTS `PESSOA_PAG`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `PESSOA_PAG` (
-  `cpf_pessoa` varchar(20) NOT NULL DEFAULT '0',
-  `doc_pag` varchar(255) NOT NULL DEFAULT '0',
-  `data_pagamento` date DEFAULT NULL,
-  `valor` float DEFAULT NULL,
-  PRIMARY KEY (`cpf_pessoa`,`doc_pag`),
-  KEY `fk_doc_pag` (`doc_pag`),
-  CONSTRAINT `fk_cpf_pessoa` FOREIGN KEY (`cpf_pessoa`) REFERENCES `PESSOA` (`cpf`),
-  CONSTRAINT `fk_doc_pag` FOREIGN KEY (`doc_pag`) REFERENCES `PAGAMENTO` (`documento_pagamento`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `PESSOA_PAG`
---
-
-LOCK TABLES `PESSOA_PAG` WRITE;
-/*!40000 ALTER TABLE `PESSOA_PAG` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PESSOA_PAG` ENABLE KEYS */;
+LOCK TABLES `SUB_FUNCAO` WRITE;
+/*!40000 ALTER TABLE `SUB_FUNCAO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SUB_FUNCAO` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -243,6 +171,85 @@ CREATE TABLE `PROGRAMA` (
 LOCK TABLES `PROGRAMA` WRITE;
 /*!40000 ALTER TABLE `PROGRAMA` DISABLE KEYS */;
 /*!40000 ALTER TABLE `PROGRAMA` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ACAO`
+--
+
+DROP TABLE IF EXISTS `ACAO`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ACAO` (
+  `codigo` varchar(255) NOT NULL DEFAULT '0',
+  `nome` varchar(255) NOT NULL,
+  `linguagem_cidada` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ACAO`
+--
+
+LOCK TABLES `ACAO` WRITE;
+/*!40000 ALTER TABLE `ACAO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ACAO` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PESSOA`
+--
+
+DROP TABLE IF EXISTS `PESSOA`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PESSOA` (
+  `cpf` varchar(20) NOT NULL DEFAULT '0',
+  `nome` varchar(255) NOT NULL,
+  `cod_superior` varchar(255) NOT NULL DEFAULT '0',
+  `cod_subordinado` varchar(255) NOT NULL DEFAULT '0',
+  `codigo_unidade_gestora` varchar(255) NOT NULL DEFAULT '0',
+	CONSTRAINT `fk_cod_superior_5` FOREIGN KEY (`cod_superior`) REFERENCES `ORGAO_SUPERIOR` (`codigo`),
+
+	CONSTRAINT `fk_cod_subordinado3` FOREIGN KEY (`cod_subordinado`) REFERENCES `ORGAO_SUBORDINADO` (`codigo`),
+
+	CONSTRAINT `fk_cod_unidade_gestora2` FOREIGN KEY (`codigo_unidade_gestora`) REFERENCES `UNIDADE_GESTORA` (`codigo`),
+
+	primary key (`cpf`, `cod_superior`, `cod_subordinado`, `codigo_unidade_gestora`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PESSOA`
+--
+
+LOCK TABLES `PESSOA` WRITE;
+/*!40000 ALTER TABLE `PESSOA` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PESSOA` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PAGAMENTO`
+--
+
+DROP TABLE IF EXISTS `PAGAMENTO`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PAGAMENTO` (
+  `documento_pagamento` varchar(255) NOT NULL DEFAULT '0',
+  `gestao_pagamento` int(255) NOT NULL,
+  PRIMARY KEY (`documento_pagamento`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PAGAMENTO`
+--
+
+LOCK TABLES `PAGAMENTO` WRITE;
+/*!40000 ALTER TABLE `PAGAMENTO` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PAGAMENTO` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -298,56 +305,71 @@ LOCK TABLES `PROG_ORGAO` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `SUB_FUNCAO`
+-- Table structure for table `FUN_SUBFUN`
 --
 
-DROP TABLE IF EXISTS `SUB_FUNCAO`;
+DROP TABLE IF EXISTS `FUN_SUBFUN`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `SUB_FUNCAO` (
-  `codigo` int(255) unsigned NOT NULL DEFAULT '0',
-  `nome` varchar(255) NOT NULL,
-  PRIMARY KEY (`codigo`)
+CREATE TABLE `FUN_SUBFUN` (
+  `cod_fun` int(255) unsigned NOT NULL DEFAULT '0',
+  `cod_sub_fun` int(255) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`cod_fun`,`cod_sub_fun`),
+  KEY `fk_cod_sub_fun` (`cod_sub_fun`),
+  CONSTRAINT `fk_cod_fun` FOREIGN KEY (`cod_fun`) REFERENCES `FUNCAO` (`codigo`),
+  CONSTRAINT `fk_cod_sub_fun` FOREIGN KEY (`cod_sub_fun`) REFERENCES `SUB_FUNCAO` (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `SUB_FUNCAO`
+-- Dumping data for table `FUN_SUBFUN`
 --
 
-LOCK TABLES `SUB_FUNCAO` WRITE;
-/*!40000 ALTER TABLE `SUB_FUNCAO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `SUB_FUNCAO` ENABLE KEYS */;
+LOCK TABLES `FUN_SUBFUN` WRITE;
+/*!40000 ALTER TABLE `FUN_SUBFUN` DISABLE KEYS */;
+/*!40000 ALTER TABLE `FUN_SUBFUN` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `UNIDADE_GESTORA`
+-- Table structure for table `PESSOA_PAG`
 --
 
-DROP TABLE IF EXISTS `UNIDADE_GESTORA`;
+DROP TABLE IF EXISTS `PESSOA_PAG`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `UNIDADE_GESTORA` (
-  `codigo` int(255) unsigned NOT NULL DEFAULT '0',
-  `nome` varchar(255) NOT NULL,
-  `cod_superior` int(255) unsigned NOT NULL DEFAULT '0',
-  `cod_subordinado` int(255) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`codigo`,`cod_superior`,`cod_subordinado`),
-  KEY `fk_cod_superior_1` (`cod_superior`),
-  KEY `fk_cod_subordinado` (`cod_subordinado`),
-  CONSTRAINT `fk_cod_superior_1` FOREIGN KEY (`cod_superior`) REFERENCES `ORGAO_SUPERIOR` (`codigo`),
-  CONSTRAINT `fk_cod_subordinado` FOREIGN KEY (`cod_subordinado`) REFERENCES `ORGAO_SUBORDINADO` (`codigo`)
+CREATE TABLE `PESSOA_PAG` (
+  `cpf_pessoa` varchar(20) NOT NULL DEFAULT '0',
+  `doc_pag` varchar(255) NOT NULL DEFAULT '0',
+  `data_pagamento` date DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  'cod_superior_pessoa' varchar(255) NOT NULL DEFAULT '0',
+  'cod_subordinado_pessoa' varchar(255) NOT NULL DEFAULT '0',
+  'codigo_unidade_gestora_pessoa' varchar(255) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`cpf_pessoa`,`doc_pag`),
+
+  KEY `fk_doc_pag` (`doc_pag`),
+  CONSTRAINT `fk_cpf_pessoa` FOREIGN KEY (`cpf_pessoa`) REFERENCES `PESSOA` (`cpf`),
+  CONSTRAINT `fk_doc_pag` FOREIGN KEY (`doc_pag`) REFERENCES `PAGAMENTO` (`documento_pagamento`)
+  CONSTRAINT 'fk_cod_sup_pessoa' FOREIGN KEY ('cod_superior_pessoa')
+	REFERENCES PESSOA('cod_superior'),
+
+	CONSTRAINT 'fk_cod_sub_pessoa' FOREIGN KEY ('cod_subordinado_pessoa')
+	REFERENCES PESSOA('cod_subordinado'),
+
+	CONSTRAINT 'fk_cod_uni_ges_pessoa' FOREIGN KEY ('codigo_unidade_gestora_pessoa')
+	REFERENCES PESSOA('codigo_unidade_gestora'),
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `UNIDADE_GESTORA`
+-- Dumping data for table `PESSOA_PAG`
 --
 
-LOCK TABLES `UNIDADE_GESTORA` WRITE;
-/*!40000 ALTER TABLE `UNIDADE_GESTORA` DISABLE KEYS */;
-/*!40000 ALTER TABLE `UNIDADE_GESTORA` ENABLE KEYS */;
+LOCK TABLES `PESSOA_PAG` WRITE;
+/*!40000 ALTER TABLE `PESSOA_PAG` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PESSOA_PAG` ENABLE KEYS */;
 UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
