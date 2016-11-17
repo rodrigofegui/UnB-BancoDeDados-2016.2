@@ -12,7 +12,7 @@ DOCUMENTADOR = javadoc
 # Diretórios 
 ################### /home/rodrigo/Dropbox/UnB/UnB\ 2016.2/Banco\ de\ Dados/Trabalhos/Trabalho\ Final/Codificação/
 # Atual, que contém todas as pastas necessárias
-DIR_BASE = /home/helio/Documentos/BD/trab/UnB-BancoDeDados-2016.2/Trabalho\ Final/Codificação/
+DIR_BASE = Codificação/
 # Arquivos-fonte, puros
 DIR_FONTES = $(DIR_BASE)src/
 # Arquivos executáveis
