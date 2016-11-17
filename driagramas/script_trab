@@ -71,14 +71,26 @@ CREATE TABLE ACAO (
 );
 
 CREATE TABLE PESSOA (
-	cpf int(20) unsigned,
+	cpf varchar(20),
 	nome varchar(255) not null,	
-	primary key (cpf)
+	cod_superior varchar(255),
+	cod_subordinado varchar(255),
+	codigo_unidade_gesotora varchar(255),
+	CONSTRAINT fk_cod_superior_5 FOREIGN KEY (cod_superior)
+	REFERENCES ORGAO_SUPERIOR(codigo),
+
+	CONSTRAINT fk_cod_subordinado3 FOREIGN KEY (cod_subordinado)
+	REFERENCES ORGAO_SUBORDINADO(codigo),
+
+	CONSTRAINT fk_cod_unidade_gestora2 FOREIGN KEY (codigo_unidade_gesotora)
+	REFERENCES UNIDADE_GESTORA(codigo),
+
+	primary key (cpf,cod_superior,cod_subordinado,codigo_unidade_gesotora)
 
 );
 
 CREATE TABLE PAGAMENTO (
-	documento_pagamento int(255) unsigned,
+	documento_pagamento varchar(255),
 	gestao_pagamento int(255) not null,	
 	primary key (documento_pagamento)
 
@@ -120,12 +132,26 @@ CREATE TABLE FUN_SUBFUN (
 
 	
 CREATE TABLE PESSOA_PAG (
-	cpf_pessoa int(20) unsigned,
-	doc_pag int(255) unsigned,
+	cpf_pessoa varchar(20),
+	cod_superior_pessoa varchar(255),
+	cod_subordinado_pessoa varchar(255),
+	codigo_unidade_gesotora_pessoa varchar(255),
+	
+	doc_pag varchar(255),
 	data_pagamento date,
 	valor int (255),
 	CONSTRAINT fk_cpf_pessoa FOREIGN KEY (cpf_pessoa)
 	REFERENCES PESSOA(cpf),
+	
+	CONSTRAINT fk_cod_sup_pessoa FOREIGN KEY (cod_superior_pessoa)
+	REFERENCES PESSOA(cod_superior),
+
+	CONSTRAINT fk_cod_sub_pessoa FOREIGN KEY (cod_subordinado_pessoa)
+	REFERENCES PESSOA(cod_subordinado),
+
+	CONSTRAINT fk_cod_uni_ges_pessoa FOREIGN KEY (codigo_unidade_gesotora_pessoa)
+	REFERENCES PESSOA(codigo_unidade_gesotora),
+
 	CONSTRAINT fk_doc_pag FOREIGN KEY (doc_pag)
 	REFERENCES PAGAMENTO(documento_pagamento),
 	PRIMARY KEY (cpf_pessoa, doc_pag)
