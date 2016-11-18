@@ -147,29 +147,35 @@ public class Item extends ItemSimples{
 			return 0;
 		
 		int menor = Integer.min(getCodigoComposto().size(), objetoDois.getCodigoComposto().size());
-		int camposIguais = 0;
-		int retorno = 0;
-		Integer compInt = 0;
-		String compStr = "";
+		int maior = Integer.max(getCodigoComposto().size(), objetoDois.getCodigoComposto().size());
 		
-		for  (int ind = 0; ind < menor; ind++){
-			Object codigo1 = getCodigoComposto().get(ind);
-			Object codigo2 = objetoDois.getCodigoComposto().get(ind);
+		if (menor == maior){
+			int camposIguais = 0;
+			int retorno = 0;
+			Integer compInt = 0;
+			String compStr = "";
 			
-			if (codigo1.equals(codigo2))
-				camposIguais++;
-			
-			else if (codigo1.getClass().equals(codigo2.getClass())){
-				if (codigo1.getClass().equals(compInt.getClass()))
-					retorno += ((Integer) codigo1) - ((Integer) codigo2);
-				else if (codigo1.getClass().equals(compStr.getClass()))
-					retorno += ((String) codigo1).compareTo((String) codigo2);
+			for  (int ind = 0; ind < menor; ind++){
+				Object codigo1 = getCodigoComposto().get(ind);
+				Object codigo2 = objetoDois.getCodigoComposto().get(ind);
+				
+				if (codigo1.equals(codigo2))
+					camposIguais++;
+				
+				else if (codigo1.getClass().equals(codigo2.getClass())){
+					if (codigo1.getClass().equals(compInt.getClass()))
+						retorno += ((Integer) codigo1) - ((Integer) codigo2);
+					else if (codigo1.getClass().equals(compStr.getClass()))
+						retorno += ((String) codigo1).compareTo((String) codigo2);
+				}
+				//*/
 			}
-			//*/
+			
+			if (camposIguais == menor) return 0;
+			else return retorno;
 		}
 		
-		if (camposIguais == menor) return 0;
-		else return retorno;
+		return Item.maxInt;
 
 	}
 	

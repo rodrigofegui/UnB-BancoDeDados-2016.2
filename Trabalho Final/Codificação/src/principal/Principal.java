@@ -26,17 +26,17 @@ public class Principal{
 		//*/
 		
 		
-		
+	
 		//*
 		bd.iniciarEspecifico();
 		System.out.println("Começou o levantamento dos dados\n");
 		
-		//for (int i = 0; i < 6; i++){
-			//String nome = "Referências/" + (201501 + i) + "_Diarias.csv";
-			String nome = "Referências/" + (201501 + 0) + "_Diarias.csv";
+		for (int i = 0; i < 6; i++){
+			String nome = "Referências/" + (201501 + i) + "_Diarias.csv";
+			//String nome = "Referências/" + (201501 + 0) + "_Diarias.csv";
 			
 			bd.processoETL(nome);
-		//}
+		}
 		
 		System.out.println("\nAcabou o levantamento dos dados\n");
 		

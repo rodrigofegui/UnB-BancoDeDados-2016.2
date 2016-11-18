@@ -487,10 +487,11 @@ public class BancoDeDados{
 		String insertSQL = "";
 		int count = getTb().size();
 		
-		System.out.println("A ler " + count + " tabelas");
+		System.out.println("A ler " + count + " tabelas.");
 		
 		for (Tabela tb : getTb()){
-			System.out.println("\nFaltam " + --count + " tabelas");
+			System.out.println("\nFaltam " + --count + " tabelas.");
+			System.out.println("Atualmente na " + tb.getNome() + ", com " + tb.getItens().size() + " itens.");
 			
 			insertSQL += tb.inserirInSQL();
 		}

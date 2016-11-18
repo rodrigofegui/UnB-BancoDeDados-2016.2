@@ -83,7 +83,7 @@ public class Tabela extends TabelaSimples{
 			//System.out.println("Entrou no insert, com " + tot + " itens");
 			int contador = 1;
 			
-			ordenarItens();
+			//ordenarItens();
 			
 			//System.out.println("Total d");
 			
