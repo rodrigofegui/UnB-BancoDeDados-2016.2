@@ -13,7 +13,7 @@ public class Item extends ItemSimples{
 	/**
 	 * Código único para cada Item
 	 */
-	private String codigoStr;
+	private LinkedList<Object> codigoComposto;
 	private LinkedList<String> codRefStr;
 	private float codRefFlo;
 	
@@ -25,51 +25,70 @@ public class Item extends ItemSimples{
 	public Item (){
 		super();
 		
-		setCodigoStr("");
+		setCodigoComposto(new LinkedList<Object>());
 		
 		setCodRefStr(new LinkedList<String>());
 		
 		setCodRefFlo(0.0f);
 	}
+
 	
 	/**
 	 * Construção de um Item, conhecendo-se o seu código
-	 * @param codigoStr Código de inicialização
+	 * @param codigoComposto Código de inicialização
 	 */
-	public Item (String codigoStr){
-		this();
+	public Item (LinkedList<Object> codigoComposto){
+		this ();
 		
-		setCodigoStr(codigoStr);
+		setCodigoComposto(codigoComposto);
 	}
-
+	
 	/**
 	 * Construção de um Item, conhecendo-se o seu código
 	 * e sua descrição
-	 * @param codigoStr Código de inicialização
+	 * @param codigoComposto Código de inicialização
 	 * @param descricao Descrição de inicialização
 	 */
-	public Item (String codigoStr, String descricao){
-		this(codigoStr);
+	public Item (LinkedList<Object> codigoComposto, String descricao){
+		this (codigoComposto);
 		
 		setDescricao(descricao);
 	}
-	
 	
 	
 	/**
 	 * Valor atribuído ao código do item
 	 * @return Código do item
 	 */
-	public String getCodigoStr() {
-		return codigoStr;
+	public LinkedList<Object> getCodigoComposto() {
+		return codigoComposto;
+	}
+	
+	/**
+	 * Valor atribuído ao código do item
+	 * @return Código do item
+	 */
+	public String getCodigoCompostoStr() {
+		String toString = "";
+		Integer compInt = 0;
+		String compStr = "";
+		
+		for (Object codigo : getCodigoComposto()){
+			if (codigo.getClass().equals(compInt.getClass())){
+				toString += codigo + ", ";
+			}else if (codigo.getClass().equals(compStr.getClass()))
+				toString += "'" + codigo + "', ";
+		}
+		
+		return toString;
 	}
 
 	/**
 	 * Atribuição de um código ao item
-	 * @param codigoStr Código a ser atribuído
+	 * @param codigoComposto Código a ser atribuído
 	 */
-	public void setCodigoStr(String codigoStr) {
-		this.codigoStr = codigoStr;
+	public void setCodigoComposto(LinkedList<Object> codigoComposto) {
+		this.codigoComposto = codigoComposto;
 	}
 	
 	/**
@@ -85,7 +104,6 @@ public class Item extends ItemSimples{
 	 * Atribuição dos códigos relacionados aos itens
 	 * @param codRefStr Códigos relacinados
 	 */
-
 	public void setCodRefStr(LinkedList<String> codRefStr) {
 		this.codRefStr = codRefStr;
 	}
@@ -94,7 +112,6 @@ public class Item extends ItemSimples{
 	 * Valor atribuído à referência
 	 * @return Códigos relacionados
 	 */
-
 	public float getCodRefFlo() {
 		return codRefFlo;
 	}
@@ -103,7 +120,6 @@ public class Item extends ItemSimples{
 	 * Atribuição dos códigos relacionados aos itens
 	 * @param codRefFlo Códigos relacinados
 	 */
-
 	public void setCodRefFlo(float codRefFlo) {
 		this.codRefFlo = codRefFlo;
 	}
@@ -118,9 +134,6 @@ public class Item extends ItemSimples{
 	 * ou o valor máximo para inteiro.
 	 */
 	public int compareTo(Item objetoDois) {
-		boolean codigoNulo = false;
-		boolean codigoStrNulo = false;
-		
 		/*
 		System.out.println("Compando:");
 		System.out.println("Codigo -> " + getCodigo());
@@ -133,28 +146,31 @@ public class Item extends ItemSimples{
 		if (equals(objetoDois))
 			return 0;
 		
-		if ((getCodigo() == maxInt) || (objetoDois.getCodigo() == maxInt))
-			codigoNulo = true;
+		int menor = Integer.min(getCodigoComposto().size(), objetoDois.getCodigoComposto().size());
+		int camposIguais = 0;
+		int retorno = 0;
+		Integer compInt = 0;
+		String compStr = "";
 		
-		if (getCodigoStr().equals("") || objetoDois.getCodigoStr().equals(""))
-			codigoStrNulo = true;
+		for  (int ind = 0; ind < menor; ind++){
+			Object codigo1 = getCodigoComposto().get(ind);
+			Object codigo2 = objetoDois.getCodigoComposto().get(ind);
+			
+			if (codigo1.equals(codigo2))
+				camposIguais++;
+			
+			else if (codigo1.getClass().equals(codigo2.getClass())){
+				if (codigo1.getClass().equals(compInt.getClass()))
+					retorno += ((Integer) codigo1) - ((Integer) codigo2);
+				else if (codigo1.getClass().equals(compStr.getClass()))
+					retorno += ((String) codigo1).compareTo((String) codigo2);
+			}
+			//*/
+		}
 		
-		if (!codigoNulo && codigoStrNulo && (getCodigo() == objetoDois.getCodigo()))
-			return 0;
-		
-		if (codigoNulo && !codigoStrNulo && (getCodigoStr().equals(objetoDois.getCodigoStr())))
-			return 0;
-		
-		if (codigoNulo && codigoStrNulo && (getDescricao().equals(objetoDois.getDescricao())))
-			return 0;
-		
-		if (!codigoNulo)
-			return getCodigo() - objetoDois.getCodigo();
-		
-		if (!codigoStrNulo)
-			return getCodigoStr().compareTo(objetoDois.getCodigoStr());
-		
-		return maxInt;
+		if (camposIguais == menor) return 0;
+		else return retorno;
+
 	}
 	
 	/**
@@ -166,10 +182,7 @@ public class Item extends ItemSimples{
 	public String inserirNoSQL (){
 		String toSQL = "values (";
 		
-		if (getCodigoStr().equals(""))
-			toSQL += getCodigo() + ", ";
-		else
-			toSQL += "'" + getCodigoStr() +  "', ";
+		toSQL += getCodigoCompostoStr();
 		
 		if (!getDescricao().equals(""))
 			toSQL += "'" + getDescricao() + "', ";
@@ -189,8 +202,6 @@ public class Item extends ItemSimples{
 		
 		if (getCodRefFlo() != 0.0f)
 			toSQL += getCodRefFlo() + ", ";
-		
-		//System.out.println("pegou referencias");
 		
 		toSQL = toSQL.substring(0, toSQL.length() - 2) + ");\n";
 		

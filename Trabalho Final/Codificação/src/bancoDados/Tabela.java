@@ -100,8 +100,7 @@ public class Tabela extends TabelaSimples{
 				
 				linha = linha.substring(0, linha.length() - 2) + ") ";
 				
-				if ((item.getCodigo() == Item.maxInt)
-					&& (item.getCodigoStr().equals("")))
+				if (item.getCodigo() == Item.maxInt)
 					item.setCodigo(contador);
 				
 				linha += item.inserirNoSQL();

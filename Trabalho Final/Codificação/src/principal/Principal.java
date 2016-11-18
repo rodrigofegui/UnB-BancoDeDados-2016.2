@@ -9,31 +9,34 @@ public class Principal{
 	
 	public static void main(String[] args) {
 		/*
-		Item item1 = new Item();
-		//item1.setCodigo(12);
-		//item1.setCodigoStr("na");
-		item1.setDescricao("Testando");
+		Item item = new Item();
+		item.getCodigoComposto().add("teste");
+		item.getCodigoComposto().add(2);
+		item.getCodigoComposto().add(3);
+		item.setDescricao("texto");
+		item.getCodRefStr().add("t1");
 		
 		Item item2 = new Item();
-		//item2.setCodigo(12);
-		//item2.setCodigoStr("n");
-		item2.setDescricao("Testando");
+		item2.getCodigoComposto().add("teste");
+		item2.getCodigoComposto().add(4);
+		item2.setDescricao("texto");
+		item2.getCodRefStr().add("t1");
 		
-		System.out.println("comparação -> " + item1.compareTo(item2));
+		System.out.println("Comparação -> " + item.compareTo(item2));
 		//*/
 		
-		//System.out.println("� -> " + Integer.parseInt("�"));
+		
 		
 		//*
 		bd.iniciarEspecifico();
 		System.out.println("Começou o levantamento dos dados\n");
 		
-		for (int i = 0; i < 6; i++){
-			String nome = "Referências/" + (201501 + i) + "_Diarias.csv";
-			//String nome = "Referências/" + (201501 + 0) + "_Diarias.csv";
+		//for (int i = 0; i < 6; i++){
+			//String nome = "Referências/" + (201501 + i) + "_Diarias.csv";
+			String nome = "Referências/" + (201501 + 0) + "_Diarias.csv";
 			
 			bd.processoETL(nome);
-		}
+		//}
 		
 		System.out.println("\nAcabou o levantamento dos dados\n");
 		
