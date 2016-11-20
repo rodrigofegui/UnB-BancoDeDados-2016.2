@@ -1,4 +1,4 @@
-
+<<<<<<< HEAD
 CREATE DATABASE  IF NOT EXISTS `trab_bd` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `trab_bd`;
 -- MySQL dump 10.13  Distrib 5.5.53, for debian-linux-gnu (x86_64)
@@ -401,4 +401,167 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-11-19 14:54:02
+=======
+drop database trab_bd;
+create database trab_bd;
 
+use trab_bd;
+
+CREATE TABLE ORGAO_SUPERIOR (
+	codigo int(255),
+	nome varchar(255) not null,
+	primary key (codigo)
+	
+);
+
+CREATE TABLE ORGAO_SUBORDINADO(
+	codigo int(255),
+	nome varchar(255) not null,
+	cod_superior int(255),
+	CONSTRAINT fk_cod_superior FOREIGN KEY (cod_superior)
+	REFERENCES ORGAO_SUPERIOR(codigo),
+	PRIMARY KEY (codigo, cod_superior)
+
+);
+
+CREATE TABLE UNIDADE_GESTORA (
+	codigo int(255),
+	nome varchar(255) not null,
+	cod_superior int(255),
+	cod_subordinado int(255),
+	CONSTRAINT fk_cod_superior_1 FOREIGN KEY (cod_superior)
+	REFERENCES ORGAO_SUPERIOR(codigo),
+	CONSTRAINT fk_cod_subordinado FOREIGN KEY (cod_subordinado)
+	REFERENCES ORGAO_SUBORDINADO(codigo),
+	PRIMARY KEY (codigo, cod_superior, cod_subordinado)
+);
+
+CREATE TABLE FUNCAO (
+	codigo int(255),
+	nome varchar(255) not null,
+	cod_superior int(255),
+	cod_subordinado int(255),
+	cod_unidade_gestora int(255),
+	CONSTRAINT fk_cod_superior2 FOREIGN KEY (cod_superior)
+	REFERENCES ORGAO_SUPERIOR(codigo),
+	CONSTRAINT fk_cod_subordinado2 FOREIGN KEY (cod_subordinado)
+	REFERENCES ORGAO_SUBORDINADO(codigo),
+	CONSTRAINT fk_cod_unidade_gestora FOREIGN KEY (cod_unidade_gestora)
+	REFERENCES UNIDADE_GESTORA(codigo),
+	PRIMARY KEY (codigo, cod_superior, cod_subordinado,cod_unidade_gestora)
+
+);
+
+CREATE TABLE SUB_FUNCAO (
+	codigo int(255),
+	nome varchar(255) not null,
+	primary key (codigo)
+
+);
+
+CREATE TABLE PROGRAMA (
+	codigo int(255),
+	nome varchar(255) not null,
+	primary key (codigo)
+
+);
+
+CREATE TABLE ACAO (
+	codigo varchar(255),
+	nome varchar(255) not null,
+	linguagem_cidada varchar(255),
+	primary key (codigo)
+
+);
+
+CREATE TABLE PESSOA (
+	cpf varchar(20),
+	nome varchar(255) not null,	
+	cod_superior int(255),
+	cod_subordinado int(255),
+	codigo_unidade_gestora int(255),
+	CONSTRAINT fk_cod_superior_5 FOREIGN KEY (cod_superior)
+	REFERENCES ORGAO_SUPERIOR(codigo),
+
+	CONSTRAINT fk_cod_subordinado3 FOREIGN KEY (cod_subordinado)
+	REFERENCES ORGAO_SUBORDINADO(codigo),
+
+	CONSTRAINT fk_cod_unidade_gestora2 FOREIGN KEY (codigo_unidade_gestora)
+	REFERENCES UNIDADE_GESTORA(codigo),
+
+	primary key (cpf,cod_superior,cod_subordinado,codigo_unidade_gestora)
+
+);
+
+CREATE TABLE PAGAMENTO (
+	documento_pagamento varchar(255),
+	gestao_pagamento int(255) not null,	
+	primary key (documento_pagamento)
+
+);
+
+CREATE TABLE PROG_ACAO (
+	cod_prog int(255),
+	cod_acao varchar(255),
+	CONSTRAINT fk_cod_prog FOREIGN KEY (cod_prog)
+	REFERENCES PROGRAMA(codigo),
+	CONSTRAINT fk_cod_acao FOREIGN KEY (cod_acao)
+	REFERENCES ACAO(codigo),
+	PRIMARY KEY (cod_prog, cod_acao)
+);
+
+
+CREATE TABLE PROG_ORGAO (
+	cod_prog int(255),
+	cod_sub int(255),
+	CONSTRAINT fk_cod_prog2 FOREIGN KEY (cod_prog)
+	REFERENCES PROGRAMA(codigo),
+	CONSTRAINT fk_cod_sub2 FOREIGN KEY (cod_sub)
+	REFERENCES ORGAO_SUBORDINADO(codigo),
+	PRIMARY KEY (cod_prog, cod_sub)
+
+);
+
+
+CREATE TABLE FUN_SUBFUN (
+	cod_fun int(255),
+	cod_sub_fun int(255),
+	CONSTRAINT fk_cod_fun FOREIGN KEY (cod_fun)
+	REFERENCES FUNCAO(codigo),
+	CONSTRAINT fk_cod_sub_fun FOREIGN KEY (cod_sub_fun)
+	REFERENCES SUB_FUNCAO(codigo),
+	PRIMARY KEY (cod_fun, cod_sub_fun)
+
+);
+
+	
+CREATE TABLE PESSOA_PAG (
+	cpf_pessoa varchar(20),
+	cod_superior_pessoa int(255),
+	cod_subordinado_pessoa int(255),
+	codigo_unidade_gestora_pessoa int(255),
+	
+	doc_pag varchar(255),
+	data_pagamento date,
+	valor int (255),
+	CONSTRAINT fk_cpf_pessoa FOREIGN KEY (cpf_pessoa)
+	REFERENCES PESSOA(cpf),
+	
+	CONSTRAINT fk_cod_sup_pessoa FOREIGN KEY (cod_superior_pessoa)
+	REFERENCES PESSOA(cod_superior),
+
+	CONSTRAINT fk_cod_sub_pessoa FOREIGN KEY (cod_subordinado_pessoa)
+	REFERENCES PESSOA(cod_subordinado),
+
+	CONSTRAINT fk_cod_uni_ges_pessoa FOREIGN KEY (codigo_unidade_gestora_pessoa)
+	REFERENCES PESSOA(codigo_unidade_gestora),
+
+	CONSTRAINT fk_doc_pag FOREIGN KEY (doc_pag)
+	REFERENCES PAGAMENTO(documento_pagamento),
+	PRIMARY KEY (cpf_pessoa, doc_pag)
+
+
+);
+
+
+>>>>>>> 08c136cbecdcacc496c605f92853331f6c1800c9
