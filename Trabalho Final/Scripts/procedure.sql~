@@ -1,0 +1,13 @@
+delimiter $$
+create procedure sp_lista_clientes(in opcao integer)
+begin
+    if opcao == 0 then
+        select * from tbl_clientes where sexo = F;
+    else
+        if opcao == 1 then
+          select * from tbl_clientes where sexo = M;
+        
+        end if;
+    end if;
+  end $$
+delimiter ;
