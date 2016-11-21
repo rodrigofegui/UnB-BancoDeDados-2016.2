@@ -1,5 +1,7 @@
 package bancoDados;
 
+import bancoDados.Campo;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -137,44 +139,41 @@ public class BancoDeDados{
 		
 		// 0:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		campos.add(new Campo("codigo"));
+		campos.add(new Campo("nome"));
 		getTb().add(new Tabela("ORGAO_SUPERIOR", campos));
 		
 		// 1:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "int(255) unsigned", "PRIMARY KEY "));
-		campos.add(new Campo("cod_superior"));//, "integer unsigned"));
-		campos.add(new Campo("nome"));//, "varchar(50)", "NOT NULL"));
+		campos.add(new Campo("codigo"));
+		campos.add(new Campo("cod_superior"));
+		campos.add(new Campo("nome"));
 		getTb().add(new Tabela("ORGAO_SUBORDINADO", campos));
 		
 		// 2:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));// "int(255) unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("cod_superior"));//, "int(255)", "NOT NULL"));
-		campos.add(new Campo("cod_subordinado"));//, "int"));
-		campos.add(new Campo("nome"));//, "varchar(255)", "NOT NULL"));
+		campos.add(new Campo("codigo"));
+		campos.add(new Campo("cod_superior"));
+		campos.add(new Campo("cod_subordinado"));
+		campos.add(new Campo("nome"));
 		getTb().add(new Tabela("UNIDADE_GESTORA", campos));
 		
 		// 3:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("cod_superior"));
-		campos.add(new Campo("cod_subordinado"));
-		campos.add(new Campo("cod_unidade_gestora"));
+		campos.add(new Campo("codigo"));
 		campos.add(new Campo("nome"));
 		getTb().add(new Tabela("FUNCAO", campos));
 		
 		// 4:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));// "varchar(55)"));
+		campos.add(new Campo("codigo"));
+		campos.add(new Campo("nome"));
 		getTb().add(new Tabela("SUB_FUNCAO", campos));
 		
 		// 5:
 		campos = new LinkedList<Campo>();
-		campos.add(new Campo("codigo"));//, "integer unsigned", "PRIMARY KEY"));
-		campos.add(new Campo("nome"));//, "varchar(115)"));
+		campos.add(new Campo("codigo"));
+		campos.add(new Campo("nome"));
 		getTb().add(new Tabela("PROGRAMA", campos));
 				
 		// 6:
@@ -201,23 +200,31 @@ public class BancoDeDados{
 		
 		// 9:
 		campos = new LinkedList<Campo>();
+		campos.add(new Campo("cod_superior"));
+		campos.add(new Campo("cod_subordinado"));
+		campos.add(new Campo("cod_unidade_gestora"));
+		campos.add(new Campo("cod_funcao"));
+		getTb().add(new Tabela("FUNCAO_UNIDADE", campos));
+		
+		// 10:
+		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cod_prog"));
 		campos.add(new Campo("cod_acao"));
 		getTb().add(new Tabela("PROG_ACAO", campos));
 		
-		// 10:
+		// 11:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cod_prog"));
 		campos.add(new Campo("cod_sub"));
 		getTb().add(new Tabela("PROG_ORGAO", campos));
 		
-		// 11:
+		// 12:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cod_fun"));
 		campos.add(new Campo("cod_sub_fun"));
 		getTb().add(new Tabela("FUN_SUBFUN", campos));
 		
-		// 12:
+		// 13:
 		campos = new LinkedList<Campo>();
 		campos.add(new Campo("cpf_pessoa"));
 		campos.add(new Campo("doc_pag"));
@@ -310,14 +317,11 @@ public class BancoDeDados{
 			tb = getTb().get(3);
 			item = new Item();
 			item.getCodigoComposto().add(Integer.parseInt(partes[6]));
-			item.getCodigoComposto().add(Integer.parseInt(partes[0]));
-			item.getCodigoComposto().add(Integer.parseInt(partes[2]));
-			item.getCodigoComposto().add(Integer.parseInt(partes[4]));
 			item.setDescricao(partes[7]);
 			inserirItemTabela (item, tb);
 			
 			/*	Função-SubFunção */
-			tb = getTb().get(11);
+			tb = getTb().get(12);
 			item = new Item();
 			item.getCodigoComposto().add(Integer.parseInt(partes[6]));
 			item.getCodigoComposto().add(Integer.parseInt(partes[8]));
@@ -356,13 +360,13 @@ public class BancoDeDados{
 			inserirItemTabela (item, tb);
 			
 			/*	Pessoa_Pag */
-			tb = getTb().get(12);
+			tb = getTb().get(13);
 			item = new Item();
 			item.getCodigoComposto().add(partes[15]);
 			item.getCodigoComposto().add(partes[17]);
-			item.getCodRef().add(Integer.parseInt(partes[0]));
-			item.getCodRef().add(Integer.parseInt(partes[2]));
-			item.getCodRef().add(Integer.parseInt(partes[4]));
+			item.getCodigoComposto().add(Integer.parseInt(partes[0]));
+			item.getCodigoComposto().add(Integer.parseInt(partes[2]));
+			item.getCodigoComposto().add(Integer.parseInt(partes[4]));
 			item.getCodRefStr().add("STR_TO_DATE('" + partes[19] + "', '%e/%m/%Y')");
 			partes[20] = partes[20].replace(',', '.');
 			item.setCodRefFlo(Float.parseFloat(partes[20]));
@@ -376,20 +380,20 @@ public class BancoDeDados{
 			inserirItemTabela (item, tb);
 			
 			/*	Prog_Acao */
-			tb = getTb().get(9);
+			tb = getTb().get(10);
 			item = new Item();
 			item.getCodigoComposto().add(Integer.parseInt(partes[10]));
 			item.getCodigoComposto().add(partes[12]);
 			inserirItemTabela (item, tb);
 			
 			/*	Prog_Orgao */
-			tb = getTb().get(10);
+			tb = getTb().get(11);
 			item = new Item();
 			item.getCodigoComposto().add(Integer.parseInt(partes[10]));
 			item.getCodigoComposto().add(Integer.parseInt(partes[2]));
 			inserirItemTabela (item, tb);
 			
-			/* Sub Função */
+			/* Sub-Função */
 			tb = getTb().get(4);
 			item = new Item();
 			item.getCodigoComposto().add(Integer.parseInt(partes[8]));
@@ -403,7 +407,16 @@ public class BancoDeDados{
 			item.getCodigoComposto().add(Integer.parseInt(partes[0]));
 			item.getCodigoComposto().add(Integer.parseInt(partes[2]));
 			item.setDescricao(partes[5]);
-			inserirItemTabela (item, tb);		
+			inserirItemTabela (item, tb);
+			
+			/*	Função-Unidade */
+			tb = getTb().get(9);
+			item = new Item();
+			item.getCodigoComposto().add(Integer.parseInt(partes[0]));
+			item.getCodigoComposto().add(Integer.parseInt(partes[2]));
+			item.getCodigoComposto().add(Integer.parseInt(partes[4]));
+			item.getCodigoComposto().add(Integer.parseInt(partes[6]));
+			inserirItemTabela (item, tb);	
 		}
 		//*/
 	}

@@ -3,6 +3,8 @@ create database trab_bd;
 
 use trab_bd;
 
+
+-- 00
 CREATE TABLE ORGAO_SUPERIOR (
 	codigo int(255),
 	nome varchar(255) not null,
@@ -10,6 +12,7 @@ CREATE TABLE ORGAO_SUPERIOR (
 	
 );
 
+-- 01
 CREATE TABLE ORGAO_SUBORDINADO(
 	codigo int(255),
 	nome varchar(255) not null,
@@ -20,6 +23,7 @@ CREATE TABLE ORGAO_SUBORDINADO(
 
 );
 
+-- 02
 CREATE TABLE UNIDADE_GESTORA (
 	codigo int(255),
 	nome varchar(255) not null,
@@ -32,13 +36,14 @@ CREATE TABLE UNIDADE_GESTORA (
 	PRIMARY KEY (codigo, cod_superior, cod_subordinado)
 );
 
+-- 03
 CREATE TABLE FUNCAO (
 	codigo int(255),
 	nome varchar(255) not null,		
 	PRIMARY KEY (codigo)
 
 );
-
+-- 04
 CREATE TABLE SUB_FUNCAO (
 	codigo int(255),
 	nome varchar(255) not null,
@@ -46,6 +51,7 @@ CREATE TABLE SUB_FUNCAO (
 
 );
 
+-- 05
 CREATE TABLE PROGRAMA (
 	codigo int(255),
 	nome varchar(255) not null,
@@ -53,6 +59,7 @@ CREATE TABLE PROGRAMA (
 
 );
 
+-- 06
 CREATE TABLE ACAO (
 	codigo varchar(255),
 	nome varchar(255) not null,
@@ -61,6 +68,7 @@ CREATE TABLE ACAO (
 
 );
 
+-- 07
 CREATE TABLE PESSOA (
 	cpf varchar(20),
 	nome varchar(255) not null,	
@@ -80,6 +88,7 @@ CREATE TABLE PESSOA (
 
 );
 
+-- 08
 CREATE TABLE PAGAMENTO (
 	documento_pagamento varchar(255),
 	gestao_pagamento int(255) not null,	
@@ -87,6 +96,7 @@ CREATE TABLE PAGAMENTO (
 
 );
 
+-- 09
 CREATE TABLE FUNCAO_UNIDADE(
 	cod_superior int(255),
 	cod_subordinado int(255),
@@ -105,6 +115,7 @@ CREATE TABLE FUNCAO_UNIDADE(
 
 );
 
+-- 10
 CREATE TABLE PROG_ACAO (
 	cod_prog int(255),
 	cod_acao varchar(255),
@@ -115,7 +126,7 @@ CREATE TABLE PROG_ACAO (
 	PRIMARY KEY (cod_prog, cod_acao)
 );
 
-
+-- 11
 CREATE TABLE PROG_ORGAO (
 	cod_prog int(255),
 	cod_sub int(255),
@@ -127,7 +138,7 @@ CREATE TABLE PROG_ORGAO (
 
 );
 
-
+-- 12
 CREATE TABLE FUN_SUBFUN (
 	cod_fun int(255),
 	cod_sub_fun int(255),
@@ -139,7 +150,7 @@ CREATE TABLE FUN_SUBFUN (
 
 );
 
-	
+-- 13
 CREATE TABLE PESSOA_PAG (
 	cpf_pessoa varchar(20),
 	cod_superior int(255),
@@ -164,8 +175,4 @@ CREATE TABLE PESSOA_PAG (
 	CONSTRAINT fk_doc_pag FOREIGN KEY (doc_pag)
 	REFERENCES PAGAMENTO(documento_pagamento),
 	PRIMARY KEY (cpf_pessoa, doc_pag,cod_superior,cod_subordinado,codigo_unidade_gestora)
-
-
 );
-
-
