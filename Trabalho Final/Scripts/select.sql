@@ -43,4 +43,5 @@ PAGAMENTO.documento_pagamento = PESSOA_PAG.doc_pag
 group by FUNCAO.nome order by total desc
 
 
+select PESSOA_PAG.data, sum(valor) from PESSOA_PAG group by 1
 
