@@ -1,0 +1,242 @@
+%%%%%%%%%%% INFORMAÇÕES GERAIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Direitos Autorais de 2016 por Rodrigo Guimarães <rodrigofegui@gmail.com>
+%
+% Este arquivo pode ser distribuído e/ou modificado
+%
+% 1. sob a Licença Pública do Projeto LaTeX e/ou
+% 2. sob a Licença Pública GNU.
+%
+% Consulte o arquivo doc/licenses/LICENSE para mais detalhes.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% INCLUSÃO DE PACOTES %%%%%%%%%%%%%%%%
+% Fonte do Documento
+\usepackage{times}
+% Codificacao dos Caracteres: UNICODE
+\usepackage [utf8] {inputenc}
+% Codificacao da fonte: Portugues
+\usepackage [T1] {fontenc}
+% Configuracao de linguagem do documento:
+% portugues e ingles
+\usepackage [brazilian]{babel}
+%\usepackage [linktoc=all]{hyperref}
+%\usepackage[portuguese]{babel}
+\usepackage [ddmmyyyy]{datetime}
+% Caso dê erro no pacote, executar no terminal (Linux):
+% sudo apt-get install texlive-lang-portuguese
+% Configuração do papel
+\usepackage {geometry}
+\usepackage{mathtools}
+% Permitir mudança de orientação da página
+\usepackage {pdflscape}
+%\usepackage {lscape}
+% Espaçamento entre linhas
+\usepackage{setspace}
+% Manipulacao de graficos no documento
+\usepackage {graphicx}
+% Possibilita inserir sub-imagens
+\usepackage {subfigure}
+\usepackage {subfig}
+% Possibilita inserir imagens ao lado do texto
+\usepackage {wrapfig}
+% Manipulação extra em tabelas
+\usepackage{tabularx}
+\usepackage{array}
+% Manipulação das cores
+\usepackage {color}
+% Configuração do texto do rodapé e do cabeçalho
+%\usepackage {fancyheadings}
+\usepackage {fancyhdr}
+% Uso de macros ao longo do texto: title, date, etc.
+\usepackage {titling}
+% Possibilita criar Ambientes com diversas colunas
+\usepackage {multicol}
+%\usepackage {natbib}
+% Possibilita o uso de trechos em latim
+\usepackage {lipsum}
+% Possibilita a quebra de tabela em páginas
+\usepackage {longtable}
+\usepackage {supertabular}
+% Possibilita a inserção de hiperlink
+%\usepackage{hyperref}
+\usepackage{url}
+% Possibilita a inserção de algoritmos no arquivo
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+% Possibilita a inserção de arquivos de código
+\usepackage{listings}
+\usepackage{amsfonts}
+%%%%%%%%%%% FIM INCLUSÃO DE PACOTES %%%%%%%%%%%
+
+%%%%%%%%%%% CORES LOCAIS %%%%%%%%%%%%%%%%%%%%%%
+\definecolor {azulComputerSociety} {RGB} {72, 116, 147}
+\definecolor {azulClaroElectron} {RGB} {31, 156, 217}
+\definecolor {laranjaElectron} {RGB} {231, 80, 29}
+\definecolor {laranjaClaroElectron} {RGB} {241, 145, 6}
+\definecolor {cinzaClaro} {RGB} {115, 115, 115}
+
+\definecolor {mygreen} {rgb} {0, 0.6, 0}
+\definecolor {mygray} {rgb} {0.5, 0.5, 0.5}
+\definecolor {mymauve} {rgb} {0.58, 0, 0.82}
+\definecolor {myyellow} {rgb} {1, 1, 0.9}
+%%%%%%%%%%% FIM CORES LOCAIS %%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% MARGENS DA FOLHA %%%%%%%%%%%%%%%%%%
+\geometry{
+	a4paper,
+	total={210mm,297mm},
+	left=20mm,
+	right=20mm,
+	top=35mm,
+	bottom=60mm,
+}
+%%%%%%%%%%% FIM DA MARGENS DA FOLHA %%%%%%%%%%%
+
+%%%%%%%%%%% CONFIGURAÇÕES INDEPENTES %%%%%%%%%%
+% Formatação do Espaçamento entre Linhas para 1.5
+\linespread {1.3}
+
+% Definindo estilo das referências
+\bibliographystyle{ieeetr}
+%%%%%%%%%%% FIM CONFIGURAÇÕES INDEPENTES %%%%%%
+
+%%%%%%%%%%% ESTILO DA PÁGINA %%%%%%%%%%%%%%%%%%
+% Definição do estilo ElectronSemData
+\fancypagestyle {Personalizado}{
+	\setlength\headheight {50pt}
+	\setlength\footskip {50pt}
+	\pagenumbering{arabic}
+	% Conteúdo do cabeçalho	
+	%\fancyhf{}
+	\lhead 	{\includegraphics[width=3cm]{Layout/ENE.png}}
+	\chead 	{\bfseries \textcolor {cinzaClaro}{\thetitle}}
+	\rhead 	{\includegraphics[width=4.5cm]{Layout/assinaturaCIC.png}}
+	% Conteúdo do rodapé
+	\lfoot 	{\scriptsize{\textcolor{cinzaClaro} {	UnB - Universidade de Brasília \\
+													Campus Darcy Ribeiro \\
+													Diego Leite - 14/0136371\\
+													Hélio Santana - 14/0142959\\
+													Rodrigo Ferreira Guimarães - 14/0170740\\
+												}}}
+	\cfoot 	{}
+	\rfoot 	{\normalsize{\textcolor{cinzaClaro}{Pág. $\thepage$}}}
+	% Espessura das linhas horizontais
+	\renewcommand {\headrulewidth}{3pt}
+	\renewcommand {\footrulewidth}{3pt}
+	% Cores das linhas
+	\renewcommand {\headrule}{{\color{azulComputerSociety}
+		\hrule width\headwidth height\headrulewidth \vskip-\headrulewidth}}
+	\renewcommand {\footrule}{{\color{azulComputerSociety}
+		\vskip-\footruleskip\vskip-\footrulewidth
+		\hrule width\headwidth height\footrulewidth\vskip\footruleskip}}
+}
+\pagestyle {Personalizado}
+%%%%%%%%%%% FIM CABEÇALHO %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% COMANDOS ADICIONAIS %%%%%%%%%%%%%%%
+% Quebra de linha simples
+\newcommand {\n} {\newline}
+% Inserção do Título e Subtítulo do documento, ao longo do texto
+\newcommand {\inserirTitulo} {	\begin{center}
+										\singlespacing
+										\bfseries \Huge \thetitle
+									\end{center}}
+% Tabulação no Texto
+\newcommand {\tab} [1] {\hspace{16pt}\rlap{#1}~}
+
+% 												
+\newcommand{\citacaoInferiorDireto}[2]{	\vspace{\fill}
+										\begin{flushright}
+											\textit{"#2"}\\
+											(#1)
+										\end{flushright}}
+
+\newcommand {\montarToCInputs}[3]{%
+        \begingroup
+        \let\origwrite\write
+        \def\write{\immediate\origwrite}%
+        \addcontentsline{#1}{#2}{#3}%
+        \endgroup
+}
+
+\newcommand{\subtitle}[1]{\author{#1}}
+\newcommand{\thesubtitle}{\theauthor}
+\newcommand{\tr}{\operatorname{tr}}
+%%%%%%%%%%% FIM COMANDOS ADICIONAIS %%%%%%%%%%%
+
+%%%%%%%%%%% AMBIENTES ADICIONAIS %%%%%%%%%%%%%%
+% Texto centralizado no centro vertical da página
+\newenvironment {MeiodaPaginaVert}{\vspace*{\fill}}{\vspace*{\fill}}
+
+% Tabela padrão para lista de presença para vários dias
+\newenvironment{ListaPresencaDias}{
+%									\begin{table}[h]
+%										\centering		
+									\begin{center}
+										\begin{longtable}
+											{|>{\centering\arraybackslash}m{2cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |>{\centering\arraybackslash}m{1.8cm} |}\hline
+											& \multicolumn{10}{c|}{\textbf{Datas}}\\ \cline{2-11}
+											\raisebox{1.5ex}{\textbf{Nomes}} &  &  &  &  &  &  &  &  &  &\\  \hline\hline
+											\endhead
+									}
+									{
+										\end{longtable}
+%									\end{table}
+									\end{center}
+									}
+%%%%%%%%%%% FIM AMBIENTES ADICIONAIS %%%%%%%%%%
+
+%%%%%%%%%%% AMBIENTE TRECHO DE CÓDIGO %%%%%%%%%
+\lstset{ %
+  % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  backgroundcolor=\color{myyellow},
+  % the size of the fonts that are used for the code
+  basicstyle=\ttfamily\scriptsize,
+  % sets if automatic breaks should only happen at whitespace
+  breakatwhitespace=false,
+  % sets automatic line breaking
+  breaklines=false,
+  % sets the caption-position to bottom
+  captionpos=b,
+  % comment style
+  commentstyle=\color{mygreen},
+  % comment style
+  deletekeywords={...},
+  % if you want to add LaTeX within your code
+  escapeinside={\%*}{*)},
+  % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  extendedchars=true,
+  % adds a frame around the code
+  frame=many,
+  % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keepspaces=true,
+  % keyword style
+  keywordstyle=\color{blue},
+  % the language of the code
+  language=C,  
+  % if you want to add more keywords to the set
+  otherkeywords={...},
+  % where to put the line-numbers; possible values are (none, left, right)
+  numbers=left,
+  % how far the line-numbers are from the code
+  numbersep=5pt,
+  % the style that is used for the line-numbers
+  numberstyle=\tiny\color{mygray},
+  % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  rulecolor=\color{black},
+  % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showspaces=false,
+  % underline spaces within strings only
+  showstringspaces=false,
+  % show tabs within strings adding particular underscores
+  showtabs=false,
+  % the step between two line-numbers. If it's 1, each line will be numbered
+  stepnumber=1,
+  % string literal style
+  stringstyle=\color{mymauve},
+  % sets default tabsize to 2 spaces
+  tabsize=2,
+  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  title=\lstname, 
+}
+%%%%%%%%%%% FIM AMBIENTE TRECHO DE CÓDIGO %%%%%
