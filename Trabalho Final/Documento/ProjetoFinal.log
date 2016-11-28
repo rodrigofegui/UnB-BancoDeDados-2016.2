@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.9.7)  28 NOV 2016 11:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.9.7)  28 NOV 2016 12:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -844,6 +844,18 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
+(/usr/share/texlive/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box64
+\UL@hyphenbox=\box65
+\UL@skip=\skip87
+\UL@hook=\toks34
+\UL@height=\dimen176
+\UL@pe=\count176
+\UL@pixel=\dimen177
+\ULC@box=\box66
+Package: ulem 2012/05/18
+\ULdepth=\dimen178
+)
 
 Package geometry Warning: Over-specification in `h'-direction.
     `width' (597.50787pt) is ignored.
@@ -913,17 +925,17 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count176
-\scratchdimen=\dimen176
-\scratchbox=\box64
-\nofMPsegments=\count177
-\nofMParguments=\count178
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count179
-\MPscratchDim=\dimen177
-\MPnumerator=\count180
-\makeMPintoPDFobject=\count181
-\everyMPtoPDFconversion=\toks35
+\scratchcounter=\count177
+\scratchdimen=\dimen179
+\scratchbox=\box67
+\nofMPsegments=\count178
+\nofMParguments=\count179
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count180
+\MPscratchDim=\dimen180
+\MPnumerator=\count181
+\makeMPintoPDFobject=\count182
+\everyMPtoPDFconversion=\toks36
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -980,7 +992,7 @@ Package: ltcaption 2013/06/09 v1.4-94 longtable captions (AR)
 Package caption Info: supertabular package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count182
+\c@lstlisting=\count183
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 15.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
@@ -1049,56 +1061,93 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 File: Layout/ENE.png Graphic file (type png)
 <use Layout/ENE.png>
-Package pdftex.def Info: Layout/ENE.png used on input line 73.
+Package pdftex.def Info: Layout/ENE.png used on input line 70.
 (pdftex.def)             Requested size: 85.35826pt x 35.39091pt.
 File: Layout/assinaturaCIC.png Graphic file (type png)
  <use Layout/assinaturaCIC.png>
-Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 73.
+Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 70.
 (pdftex.def)             Requested size: 128.0374pt x 15.9354pt.
  [2]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 72.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 72.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 104.
+
+Missing character: There is no ó in font cmr12!
+
+LaTeX Warning: Command \' invalid in math mode on input line 105.
+
+Missing character: There is no ó in font cmr12!
+
+LaTeX Warning: Command \' invalid in math mode on input line 122.
+
+Missing character: There is no ó in font cmr12!
+File: Layout/ENE.png Graphic file (type png)
+<use Layout/ENE.png>
+Package pdftex.def Info: Layout/ENE.png used on input line 123.
+(pdftex.def)             Requested size: 85.35826pt x 35.39091pt.
+File: Layout/assinaturaCIC.png Graphic file (type png)
+ <use Layout/assinaturaCIC.png>
+Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 123.
+(pdftex.def)             Requested size: 128.0374pt x 15.9354pt.
+ [3]
 File: Layout/ENE.png Graphic file (type png)
  <use Layout/ENE.png>
-Package pdftex.def Info: Layout/ENE.png used on input line 73.
+Package pdftex.def Info: Layout/ENE.png used on input line 137.
 (pdftex.def)             Requested size: 85.35826pt x 35.39091pt.
 File: Layout/assinaturaCIC.png Graphic file (type png)
 
 <use Layout/assinaturaCIC.png>
-Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 73.
+Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 137.
 (pdftex.def)             Requested size: 128.0374pt x 15.9354pt.
- [3 <./Imagens/DER.jpeg>]
+ [4]
 File: Layout/ENE.png Graphic file (type png)
  <use Layout/ENE.png>
-Package pdftex.def Info: Layout/ENE.png used on input line 73.
+Package pdftex.def Info: Layout/ENE.png used on input line 137.
 (pdftex.def)             Requested size: 85.35826pt x 35.39091pt.
 File: Layout/assinaturaCIC.png Graphic file (type png)
 
 <use Layout/assinaturaCIC.png>
-Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 73.
+Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 137.
 (pdftex.def)             Requested size: 128.0374pt x 15.9354pt.
- [4 <./Imagens/MR-eps-converted-to.pdf>]
-(./ProjetoFinal.aux)
+ [5 <./Imagens/DER.jpeg>]
+File: Layout/ENE.png Graphic file (type png)
+ <use Layout/ENE.png>
+Package pdftex.def Info: Layout/ENE.png used on input line 137.
+(pdftex.def)             Requested size: 85.35826pt x 35.39091pt.
+File: Layout/assinaturaCIC.png Graphic file (type png)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+<use Layout/assinaturaCIC.png>
+Package pdftex.def Info: Layout/assinaturaCIC.png used on input line 137.
+(pdftex.def)             Requested size: 128.0374pt x 15.9354pt.
+ [6 <./Imagens/MR-eps-converted-to.pdf>]
+(./ProjetoFinal.aux) ) 
 Here is how much of TeX's memory you used:
- 9759 strings out of 493029
- 139021 string characters out of 6136235
- 363179 words of memory out of 5000000
- 13042 multiletter control sequences out of 15000+600000
- 28015 words of font info for 48 fonts, out of 8000000 for 9000
+ 9860 strings out of 493029
+ 140121 string characters out of 6136235
+ 367061 words of memory out of 5000000
+ 13135 multiletter control sequences out of 15000+600000
+ 29765 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,15n,98p,1017b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
-rw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on ProjetoFinal.pdf (4 pages, 329605 bytes).
+ 68i,16n,98p,1017b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.en
+c}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on ProjetoFinal.pdf (6 pages, 344038 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
- 32 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 39 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

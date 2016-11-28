@@ -60,5 +60,43 @@
 	\end{figure}
 	
 	\section{Avaliação das formas normais}
-		\
+		\label{sec:FormaisNormais}
+	A normalização é importante para identificar um bom projeto relacional. Um bom MER e sua consequente conversão para um MR, praticamente, deixa o esquema relacional~\emph{normalizado}	.
+	
+	Ao se tratar de normalização, consideram-se três formais normais, onde: na primeira (1FN) há a caracterização de um valor de uma coluna de uma tabela é indivísel; na segunda (2FN), se estiver na 1FN e todo atributo do complemento de uma chave candidata é totalmente funcionalmente dependente daquela chave; for fim, na terceira, se estiver na 2FN e todos os atributos não-chave forem dependentes não-transitivos da chave primária.
+	
+	Dessa forma, foram selecionadas três tabelas: Pessoa, Ação e Função; onde:
+	
+	\newpage
+	\begin{itemize}
+		\item \textbf{Pessoa:}
+			\begin{table}[h]
+				\centering
+				\begin{tabular}{|c|c|c|c|c|} \hline
+					{\ul Cpf} & Nome & Cod\_superior & Cod\_subordinado & Cod\_unidade\_gestora \\ \hline
+				\end{tabular}
+			\end{table}
+			
+			\begin{itemize}
+				\item 1FN: Todos os valores das colunas da tabela são indivisíveis;
+				\item 2FN: Chave candidata: Cpf
+					\begin{eqnarray*}
+						Cpf & \rightarrow & Nome \\
+						Cpf & \rightarrow & Cod\_superior \\
+						Cpf & \rightarrow & Cod\_subordinado \\
+						Cpf & \rightarrow & Cod\_unidade\_gestora
+					\end{eqnarray*}
+			\end{itemize}
+			
+	\end{itemize}
+		
+		
+	\section{Criação do BD}
+		\label{sec:BDcreate}
+		
+	\section{Processo de ETL}
+		\label{sec:ETL}
+		
+	\section{Persistência e Visualização}
+		\label{sec:Per&Vis}
 \end{document}
