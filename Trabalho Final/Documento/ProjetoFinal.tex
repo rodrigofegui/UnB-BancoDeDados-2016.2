@@ -93,7 +93,7 @@
 			\begin{table}[h]
 				\centering
 				\begin{tabular}{|c|c|c|} \hline
-					{\ul Código} & Nome & Linguagem\_cidada \\ \hline
+					{\ul Codigo} & Nome & Linguagem\_cidada \\ \hline
 				\end{tabular}
 			\end{table}
 			
@@ -101,8 +101,8 @@
 				\item 1FN: Todos os valores das colunas da tabela são indivisíveis;
 				\item 2FN: Chave candidata: Código
 					\begin{eqnarray*}
-						Código & \rightarrow & Nome \\
-						Código & \rightarrow & Linguagem\_cidada
+						Codigo & \rightarrow & Nome \\
+						Codigo & \rightarrow & Linguagem\_cidada
 					\end{eqnarray*}
 				\item 3FN: Não há nenhuma transitividade nas colunas, uma vez que todos são definidos unicamente somente pelo Código.
 			\end{itemize}
@@ -111,7 +111,7 @@
 			\begin{table}[h]
 				\centering
 				\begin{tabular}{|c|c|} \hline
-					{\ul Código} & Nome \\ \hline
+					{\ul Codigo} & Nome \\ \hline
 				\end{tabular}
 			\end{table}
 			
@@ -119,7 +119,7 @@
 				\item 1FN: Todos os valores das colunas da tabela são indivisíveis;
 				\item 2FN: Chave candidata: Código
 					\begin{eqnarray*}
-						Código & \rightarrow & Nome
+						Codigo & \rightarrow & Nome
 					\end{eqnarray*}
 				\item 3FN: Não há nenhuma transitividade nas colunas, uma vez que todos são definidos unicamente somente pelo Código.
 			\end{itemize}
@@ -127,10 +127,42 @@
 		
 	\section{Criação do BD}
 		\label{sec:BDcreate}
+	A partir do MR construído, foi realizado o processo da engenhaia reversa, de modo a ser obter o~\emph{script} corresponde à criação daquele BD. Como resultado tem-se, para apenas uma tabela, o~\emph{script} demonstrado no Listing 1.
+	
+	\lstinputlisting[caption = Trecho referente à criação do BD e de uma tabela no MySQL.]
+					{Documentos/criarBanco.sql}
 		
 	\section{Processo de ETL}
 		\label{sec:ETL}
-		
+	Como já foi anteriormente na Seção~\ref{sec:DER}, os dados obtidos a partir da INDA são planilhas e para elas é preciso realizar um processo, de forma a se obter dados interpretáveis pelo SGBD utilizado, que no caso foi o~\emph{MySQL Workbench}. Tal processo é denominado~\emph{Processo ETL} (\emph{Extract}, \emph{Transform}, \emph{Load}), pois nele há a extração dos dados existentes nas planilhas, há uma manipulação para formatar a inserção no SGBD e, por fim, há o povoamento do BD com os dados extraídos das planilhas.
+	
+	As primeiras duas etapas do processo foram realizadas por um programa me linguagem JAVA, enquanto que a última era realizada diretamente no SGBD. Como resultado da primeira parte há um \emph{script} .sql com todas as inserções, tal \emph{script} é executado na segunda parte.
+
+	Todas as planilhas tem os mesmos tipos de dados e nas mesmas colunas, num total de $21$ colunas. Com este conhecimento e sabendo o MR, que deveria ser implementado, a extração ocorreu de forma a respeitar tais conhecimento e os relacionados à Seção~\ref{sec:FormaisNormais}, tendo os atribuitos-chave únicos para cada registro. Na etapa de transformação, há a formação do comando de inserção, que segue a sintaxe do Listing 2.
+	
+	\lstinputlisting[caption = Trecho referente à sintaxe de inserção no MySQL.
+					\label{lis:insert}]
+					{Documentos/insert.sql}
+	
 	\section{Persistência e Visualização}
 		\label{sec:Per&Vis}
+	A camada de persistência e o ambiente para visualização dos dados foram feitos com a plataforma~\emph{OutSystems} e está disponível no endereço:~\url{https://diegoleite.outsystemscloud.com/Trab_BD/}
+	
+	\section{View, Procedure e Trigger}
+		\label{sec:VPT}
+	As~\emph{view} são tabelas virtuais criadas a partir de um~\emph{SELECT}. Normalmente, são utilizadas para prover segurança e facilidade de desenvolvimento. As~\emph{procedure} são programas que podem ser armazenados no SGBD, onde cada SGBD tem suas próprias linguagens. E as~\emph{triggers} é um objeto de banco de dados, associado a uma tabela, definido para ser disparado, respondendo a um evento em participar.
+	
+	Dessa forma foram desenvolvidas os seguintes arquivos.
+	
+	\lstinputlisting[caption = Trecho referente à~\emph{view} desenvolvida.
+					\label{lis:insert}]
+					{Documentos/view.sql}
+					
+	\lstinputlisting[caption = Trecho referente ao~\emph{procedure} desenvolvido.
+					\label{lis:insert}]
+					{Documentos/procedure.sql}
+	
+	\lstinputlisting[caption = Trecho referente ao~\emph{trigger} desenvolvido.
+					\label{lis:insert}]
+					{Documentos/trigger.sql}
 \end{document}

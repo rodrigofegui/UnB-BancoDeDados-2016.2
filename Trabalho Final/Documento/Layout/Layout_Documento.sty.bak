@@ -215,7 +215,7 @@
   % keyword style
   keywordstyle=\color{blue},
   % the language of the code
-  language=C,  
+  language=SQL,  
   % if you want to add more keywords to the set
   otherkeywords={...},
   % where to put the line-numbers; possible values are (none, left, right)
