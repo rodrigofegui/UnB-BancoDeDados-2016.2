@@ -43,9 +43,8 @@ PAGAMENTO.documento_pagamento = PESSOA_PAG.doc_pag
 group by FUNCAO.nome order by total desc
 
 
-<<<<<<< HEAD
+
 select DISTINCT MONTH (PESSOA_PAG.data) as mes, sum(valor) from PESSOA_PAG group by mes
-=======
-select PESSOA_PAG.data_pagamento, sum(valor) from PESSOA_PAG group by 1
->>>>>>> 2d50a4f8f419e2c61b36fe18c0431dfedb16663a
+
+
 
